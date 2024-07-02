@@ -24,3 +24,46 @@ data = tracker.get_all_values()
 
 print(data)
 
+def main():
+    """
+    Welcome message is displayed to the user explaining the main concept of the tracker
+    """
+
+    print('*** WELCOME TO BUDGET TRACKER ***\n')
+    print('Would you like to get clear on where your money goes?')
+    print("Let's get started!")
+    print('Please choose from the following options: ')
+    print('\n')
+    print('1. Display Budget Summary\n')
+    print('2. Generate Budget\n')
+    print('3. Edit Budget\n')
+
+    #loop throught the choices
+    #Python Exception Handling(CI)
+    while True:
+        try:
+            choice = int(input('Please Enter Your Choice : \n'))
+            if choice == 1:
+                display_summary()
+                break
+            elif choice == 2: 
+                add_category()
+                break
+            elif choice == 3:
+                edit_budget()
+                break
+            else:
+                print('Number Out Of Range. Please Enter Number From The List.\n')
+        except ValueError:
+            print('Invalid Data. Please Enter Number From The List.\n')
+            continue
+#calling the main function        
+main()
+
+
+
+
+
+
+
+
