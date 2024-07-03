@@ -50,7 +50,7 @@ def main():
                 break
             else:
                 print('Number Out Of Range.\n')
-                print('PleaseEnter Number From The List Provided.\n')
+                print('Please Enter Number From The List Provided:\n')
         except ValueError:
             print('Invalid Data. Please Enter Number From The List.\n')
             continue
@@ -80,21 +80,21 @@ def add_category():
     while True:
         try:
             user_input = input().strip().capitalize()
-            if user_input in month_abbr and user_input in existing_months:
-                print('This month already exists.)
-                print('Please add a new month)
-                print('to VIEW or EDIT current months press x')
-                if user_input == 'x' or 'X':
-                    main()
-                break
-            if user_input in month_abbr and user_input not in existing_months:
-                full_month_name = month_abbr[user_input]
+            full_month_name = month_abbr.get(user_input)
+
+            if full_month_name and full_month_name in existing_months:
+                print(f'{full_month_name} Already Exists')
+                print('Please Add A New Month')
+                continue
+
+            elif full_month_name:
                 print(f"Creating new month: {full_month_name}")
                 # append month to the google sheet tracker
                 tracker.append_row([full_month_name])
                 print(f"{full_month_name} has been added sucessfully")
-                # chose_category()
+                chose_category()
                 break
+            
             else:
                 print(f"{user_input} does not match criteria: ")
                 print('type first 3 letters only')
@@ -102,7 +102,6 @@ def add_category():
             print('Invalid Data. Please Enter Number From The List.\n')
             continue
 
+
 # calling the main function
-
-
 main()
