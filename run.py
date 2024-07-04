@@ -20,46 +20,6 @@ SHEET = GSPREAD_CLIENT.open('budget_planner')
 tracker = SHEET.worksheet('tracker')
 data = tracker.get_all_values()
 
-
-def main():
-    """
-    Welcome Message to the user with options to chose from for the next step.
-    """
-
-    print('*** WELCOME TO BUDGET TRACKER ***\n')
-    print('Would you like to get clear on where your money goes?\n')
-    print("Let's get started!\n")
-
-
-    
-
-    # loop throught the choices2
-
-    # Source : Python Exception Handling(CI)
-    while True:
-        print('Please choose from the following options: \n')
-        print('1. Display Budget Summary\n')
-        print('2. Generate Budget\n')
-        print('3. Edit Budget\n')
-        try:
-            choice = int(input('Please Enter Your Choice ( 1, 2 or 3) Here: '))
-            if choice == 1:
-                display_summary()
-                break
-            elif choice == 2:
-                generate_month()
-                break
-            elif choice == 3:
-                edit_budget()
-                break
-            else:
-                print('Number Out Of Range.\n')
-                print('Please Enter Number From The List Provided:\n')
-        except ValueError:
-            print('Invalid Data. Please Enter Number From The List.\n')
-            continue
-
-
 # pull all the values from the first column(index1)
 month_data = tracker.col_values(1)
 # since first row is a header, skip it
@@ -74,6 +34,7 @@ full_months = [
 # Create a dictionary for month abbreviations
 # only first 3 letters needed, making it easy for the user
 month_abbr = {month[:3].capitalize(): month for month in full_months}
+
 
 def chose_category():
     """
@@ -91,8 +52,10 @@ def chose_category():
         try:
             choice = int(input('Please Enter Your Choice Here: '))
             if choice == 1:
-                add_income()
-                break
+                tracker.append_row(['hello', '200'])
+                continue
+                #add_income()
+                #break
             elif choice == 2:
                 add_outgoings()
                 break
@@ -123,12 +86,49 @@ def generate_month():
                 print(f"Creating new month: {full_month_name}")
                 # append month to the google sheet tracker
                 tracker.append_row([full_month_name])
+                newly_added_mth = tracker.append_row([full_month_name])
                 print(f"{full_month_name} has been added sucessfully")
                 chose_category()
                 break
             else:
-                print(f"{user_input} does not match criteria: ")
-                print('type first 3 letters only')
+                print(f"{user_input} does not match the criteria: \n")
+        except ValueError :
+            print('Invalid Data. Please Enter Number From The List.\n')
+            continue
+
+
+
+def main():
+    """
+    Welcome Message to the user with options to chose from for the next step.
+    """
+
+    print('*** WELCOME TO BUDGET TRACKER ***\n')
+    print('Would you like to get clear on where your money goes?\n')
+    print("Let's get started!\n")
+
+
+    # loop throught the choices2
+    # Source : Python Exception Handling(CI)
+    while True:
+        print('Please choose from the following options: \n')
+        print('1. Display Budget Summary\n')
+        print('2. Generate Budget\n')
+        print('3. Edit Budget\n')
+        try:
+            choice = int(input('Please Enter Your Choice ( 1, 2 or 3) Here: '))
+            if choice == 1:
+                display_summary()
+                break
+            elif choice == 2:
+                generate_month()
+                break
+            elif choice == 3:
+                edit_budget()
+                break
+            else:
+                print('Number Out Of Range.\n')
+                print('Please Enter Number From The List Provided:\n')
         except ValueError:
             print('Invalid Data. Please Enter Number From The List.\n')
             continue
