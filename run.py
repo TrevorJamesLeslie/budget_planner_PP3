@@ -27,23 +27,27 @@ def main():
     """
 
     print('*** WELCOME TO BUDGET TRACKER ***\n')
-    print('Would you like to get clear on where your money goes?')
-    print("Let's get started!")
-    print('Please choose from the following options: \n')
-    print('1. Display Budget Summary\n')
-    print('2. Generate Budget\n')
-    print('3. Edit Budget\n')
+    print('Would you like to get clear on where your money goes?\n')
+    print("Let's get started!\n")
 
-    # loop throught the choices
+
+    
+
+    # loop throught the choices2
+
     # Source : Python Exception Handling(CI)
     while True:
+        print('Please choose from the following options: \n')
+        print('1. Display Budget Summary\n')
+        print('2. Generate Budget\n')
+        print('3. Edit Budget\n')
         try:
-            choice = int(input('Please Enter Your Choice Here :'))
+            choice = int(input('Please Enter Your Choice ( 1, 2 or 3) Here: '))
             if choice == 1:
                 display_summary()
                 break
             elif choice == 2:
-                add_category()
+                generate_month()
                 break
             elif choice == 3:
                 edit_budget()
@@ -71,10 +75,38 @@ full_months = [
 # only first 3 letters needed, making it easy for the user
 month_abbr = {month[:3].capitalize(): month for month in full_months}
 
-
-def add_category():
+def chose_category():
     """
-    Confirm weather or not month exists in the tracking list
+    Let user chose what wether category is income or outcome
+    """
+    
+    while True:
+        print('What Category You Are Interested In?')
+        print('Choose From Options Below')
+        print('Please chose your category(type in number only: 1 or 2): \n')
+        print('\n')
+        print('1. Income \n')
+        print('2. Outgoings \n')
+    
+        try:
+            choice = int(input('Please Enter Your Choice Here: '))
+            if choice == 1:
+                add_income()
+                break
+            elif choice == 2:
+                add_outgoings()
+                break
+            else:
+                print('Number Out Of Range.\n')
+                print('Please Enter Number From The List Provided:\n')
+        except ValueError:
+            print('Invalid Data. Please Enter Number From The List.\n')
+            continue
+
+
+def generate_month():
+    """
+    Confirm weather or not month exists in the tracking list. If not generate new one and append tothe lsit
     """
     print('Please Type First 3 letters Of The Month You Wish To Add:')
     while True:
@@ -94,7 +126,6 @@ def add_category():
                 print(f"{full_month_name} has been added sucessfully")
                 chose_category()
                 break
-            
             else:
                 print(f"{user_input} does not match criteria: ")
                 print('type first 3 letters only')
