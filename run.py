@@ -18,14 +18,14 @@ SHEET = GSPREAD_CLIENT.open('budget_planner')
 
 
 tracker = SHEET.worksheet('tracker')
-data = tracker.get_all_values()
+all_values = tracker.get_all_values()
 
 # pull all the values from the first column(index1)
 month_data = tracker.col_values(1)
 # since first row is a header, skip it
 existing_months = month_data[1:]  # columns are 1 based not 0
-
 # create full month list
+
 full_months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -34,6 +34,31 @@ full_months = [
 # Create a dictionary for month abbreviations
 # only first 3 letters needed, making it easy for the user
 month_abbr = {month[:3].capitalize(): month for month in full_months}
+data = {}
+
+tracker.append_row([full_month_name])
+newly_added_mth = tracker.append_row([full_month_name])
+
+
+def add_category_income(month, category, income):
+    """
+    Add new category and income to the month
+
+    """
+    while True:
+        print("Enter name of your income and amount, (e.g.,: shop, 111")
+        data[newly_added_mth] = {"Category":[], "Income":[], "Outgoings":[] }
+
+        if newly_added_mth in data:
+            data[newly_added_mth]["Category"].append(category)
+            data[newly_added_mth]["Income"].append(income)
+        else:
+            print('this month does not exist')
+
+    
+category, income = input("Enter name of your income and amount, (e.g.,: shop,150)").split(',')
+income = float(income) #convert income to a float
+
 
 
 def chose_category():
@@ -45,19 +70,16 @@ def chose_category():
         print('What Category You Are Interested In?')
         print('Choose From Options Below')
         print('Please chose your category(type in number only: 1 or 2): \n')
-        print('\n')
         print('1. Income \n')
         print('2. Outgoings \n')
     
         try:
             choice = int(input('Please Enter Your Choice Here: '))
             if choice == 1:
-                tracker.append_row(['hello', '200'])
-                continue
-                #add_income()
-                #break
+                add_category_income(month, category, income)
+                break
             elif choice == 2:
-                add_outgoings()
+                add_outgoings(month,category, outgoings)
                 break
             else:
                 print('Number Out Of Range.\n')
@@ -73,11 +95,12 @@ def generate_month():
     """
     print('Please Type First 3 letters Of The Month You Wish To Add:')
     while True:
+
         try:
             user_input = input().strip().capitalize()
             full_month_name = month_abbr.get(user_input)
 
-            if full_month_name and full_month_name in existing_months:
+            if full_month_name in existing_months:
                 print(f'{full_month_name} Already Exists')
                 print('Please Add A New Month')
                 continue
@@ -94,8 +117,7 @@ def generate_month():
                 print(f"{user_input} does not match the criteria: \n")
         except ValueError :
             print('Invalid Data. Please Enter Number From The List.\n')
-            continue
-
+        continue
 
 
 def main():
@@ -136,3 +158,6 @@ def main():
 
 # calling the main function
 main()
+
+add_category_income(month, category, income)
+chose_category()
