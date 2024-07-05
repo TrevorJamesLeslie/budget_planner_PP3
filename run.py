@@ -17,7 +17,6 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('budget_planner')
 
 
-
 tracker = SHEET.worksheet('tracker')
 all_values = tracker.get_all_values()
 
@@ -41,7 +40,6 @@ month_abbr = {month[:3].capitalize(): month for month in full_months}
 data = {}
 
 
-
 def add_income(new_month, category, income):
     """
     Add new category and income to the month
@@ -53,10 +51,29 @@ def add_income(new_month, category, income):
         existing_months.append(new_month)
         data[new_month] = {"Category": [], "Income": [], "Outgoings": []}
         print(f"{new_month} has been added successfully.")
-   
+
     if new_month in data:
-            data[new_month]["Category"].append(category)
-            data[new_month]["Income"].append(income)
+        data[new_month]["Category"].append(category)
+        data[new_month]["Income"].append(income)
+    else:
+        print('This month does not exist')
+
+
+def add_outgoings(new_month, category, outgoings):
+    """
+    Add new category and income to the month
+
+    """
+
+    if new_month not in existing_months:
+        tracker.append_row([new_month])
+        existing_months.append(new_month)
+        data[new_month] = {"Category": [], "Income": [], "Outgoings": []}
+        print(f"{new_month} has been added successfully.")
+
+    if new_month in data:
+        data[new_month]["Category"].append(category)
+        data[new_month]["Outgoings"].append(outgoings)
     else:
         print('This month does not exist')
 
@@ -65,23 +82,26 @@ def chose_category(new_month):
     """
     Let user chose what wether category is income or outcome
     """
-   
     while True:
         print('What Category You Are Interested In?')
         print('Choose From Options Below')
         print('Please chose your category(type in number only: 1 or 2): \n')
         print('1. Income \n')
         print('2. Outgoings \n')
-   
+
         try:
             choice = int(input('Please Enter Your Choice Here: '))
             if choice == 1:
-                category, income = input("Enter name of your income and amount (e.g., salary, 2000): ").split(',')
+                category, income = input(
+                        "Type in income name and amount (e.g : salary, 2000): "
+                        ).split(',')
                 add_income(new_month, category, income)
                 break
             elif choice == 2:
-                category, outgoings = input("Enter name of your income and amount (e.g., shop, 150): ").split(',')
-                add_outgoings(new_month,category, outgoings)
+                category, outgoings = input(
+                        "Type outgoings name and amount(e.g., shop, 150): "
+                        ).split(',')
+                add_outgoings(new_month, category, outgoings)
                 break
             else:
                 print('Number Out Of Range.\n')
@@ -93,7 +113,8 @@ def chose_category(new_month):
 
 def generate_month():
     """
-    Confirm weather or not month exists in the tracking list. If not generate new one and append tothe lsit
+    Confirm weather or not month exists in the tracking list.
+    If not generate new one and append tothe lsit
     """
     print('Please Type First 3 letters Of The Month You Wish To Add:')
     while True:
@@ -111,13 +132,14 @@ def generate_month():
                 # append month to the google sheet tracker
                 tracker.append_row([full_month_name])
                 new_month = existing_months.append(full_month_name)
-                data[full_month_name] = {"Category":[], "Income":[], "Outgoings":[] }
+                data[full_month_name] = {
+                        "Category": [], "Income": [], "Outgoings": []}
                 print(f"{full_month_name} has been added sucessfully")
                 chose_category(full_month_name)
                 break
             else:
                 print(f"{user_input} does not match the criteria: \n")
-        except ValueError :
+        except ValueError:
             print('Invalid Data. Please Enter Number From The List.\n')
 
 
@@ -126,13 +148,9 @@ def main():
     Welcome Message to the user with options to chose from for the next step.
     """
 
-
     print('*** WELCOME TO BUDGET TRACKER ***\n')
     print('Would you like to get clear on where your money goes?\n')
     print("Let's get started!\n")
-
-
-
 
     # loop throught the choices2
     # Source : Python Exception Handling(CI)
@@ -160,8 +178,7 @@ def main():
             continue
 
 
-
+add_income()
 
 # calling the main function
 main()
-
