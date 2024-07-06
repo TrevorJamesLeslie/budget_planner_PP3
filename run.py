@@ -17,8 +17,12 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('budget_planner')
 
 
+
+
 tracker = SHEET.worksheet('tracker')
 all_values = tracker.get_all_values()
+
+
 
 
 # pull all the values from the first column(index1)
@@ -28,54 +32,41 @@ existing_months = month_data[1:]  # columns are 1 based not 0
 # create full month list
 
 
+
+
 full_months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ]
 
 
+
+
 # Create a dictionary for month abbreviations
 # only first 3 letters needed, making it easy for the user
 month_abbr = {month[:3].capitalize(): month for month in full_months}
-data = {}
+data= {}
 
 
-def add_income(new_month, category, income):
-    """
-    Add new category and income to the month
 
-    """
-
-    if new_month not in existing_months:
-        tracker.append_row([new_month])
-        existing_months.append(new_month)
-        data[new_month] = {"Category": [], "Income": [], "Outgoings": []}
-        print(f"{new_month} has been added successfully.")
-
-    if new_month in data:
-        data[new_month]["Category"].append(category)
-        data[new_month]["Income"].append(income)
-    else:
-        print('This month does not exist')
-
-
-def add_outgoings(new_month, category, outgoings):
-    """
-    Add new category and income to the month
+def add_income(new_month):
 
     """
+    Append income data to the existing month
 
-    if new_month not in existing_months:
-        tracker.append_row([new_month])
-        existing_months.append(new_month)
-        data[new_month] = {"Category": [], "Income": [], "Outgoings": []}
-        print(f"{new_month} has been added successfully.")
+    """
+    while True:
+        category, income = input("Type in income name and amount (e.g : salary, 2000): "
+                ).split(',')
+        tracker.append_row([new_month, category, income, ', '])
+        data[new_month]['category'].append(category)
+        data[new_month]['income'].append(income)
+        print(f"Added {income} to {category} for {new_month}.")
+        
+        decision = input("Type 'x' if you are done adding the income\n")
+        if decision.lower() == "x":
+            break
 
-    if new_month in data:
-        data[new_month]["Category"].append(category)
-        data[new_month]["Outgoings"].append(outgoings)
-    else:
-        print('This month does not exist')
 
 
 def chose_category(new_month):
@@ -89,13 +80,11 @@ def chose_category(new_month):
         print('1. Income \n')
         print('2. Outgoings \n')
 
+
         try:
             choice = int(input('Please Enter Your Choice Here: '))
             if choice == 1:
-                category, income = input(
-                        "Type in income name and amount (e.g : salary, 2000): "
-                        ).split(',')
-                add_income(new_month, category, income)
+                add_income(new_month)
                 break
             elif choice == 2:
                 category, outgoings = input(
@@ -111,6 +100,8 @@ def chose_category(new_month):
             print('Invalid Data. Please Enter Number From The List.\n')
 
 
+
+
 def generate_month():
     """
     Confirm weather or not month exists in the tracking list.
@@ -121,26 +112,29 @@ def generate_month():
         try:
             user_input = input().strip().capitalize()
             full_month_name = month_abbr.get(user_input)
-
-            if full_month_name in existing_months:
-                print(f'{full_month_name} Already Exists')
-                print('Please Add A New Month')
-                continue
-
-            elif full_month_name:
-                print(f"Creating new month: {full_month_name}")
-                # append month to the google sheet tracker
-                tracker.append_row([full_month_name])
-                new_month = existing_months.append(full_month_name)
-                data[full_month_name] = {
-                        "Category": [], "Income": [], "Outgoings": []}
-                print(f"{full_month_name} has been added sucessfully")
-                chose_category(full_month_name)
+            if full_month_name:
+                if full_month_name in existing_months:
+                    print(f'{full_month_name} Already Exists')
+                    print('Please Add A New Month')
+                    continue
+               
+                else:
+                    print(f"Creating new month: {full_month_name}")
+                    # append month to the google sheet tracker
+                    tracker.append_row([full_month_name])
+                    existing_months.append(full_month_name)
+                    data[full_month_name] = {
+                            "category": [], "income": [], "outgoings": []}
+                    print(f"{full_month_name} has been added sucessfully")
+                    chose_category(full_month_name)
                 break
             else:
                 print(f"{user_input} does not match the criteria: \n")
         except ValueError:
-            print('Invalid Data. Please Enter Number From The List.\n')
+            print('Invalid Data.\n')
+        continue
+
+
 
 
 def main():
@@ -148,9 +142,11 @@ def main():
     Welcome Message to the user with options to chose from for the next step.
     """
 
+
     print('*** WELCOME TO BUDGET TRACKER ***\n')
     print('Would you like to get clear on where your money goes?\n')
     print("Let's get started!\n")
+
 
     # loop throught the choices2
     # Source : Python Exception Handling(CI)
@@ -178,7 +174,10 @@ def main():
             continue
 
 
-add_income()
+
 
 # calling the main function
 main()
+
+
+
