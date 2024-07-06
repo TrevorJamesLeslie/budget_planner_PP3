@@ -61,12 +61,30 @@ def add_income(new_month):
         tracker.append_row([new_month, category, income, ', '])
         data[new_month]['category'].append(category)
         data[new_month]['income'].append(income)
-        print(f"Added {income} to {category} for {new_month}.")
+        print(f"Added {income} to {category} for {new_month}.\n")
         
         decision = input("Type 'x' if you are done adding the income\n")
         if decision.lower() == "x":
+            add_outgoings(new_month)
             break
 
+def add_outgoings(new_month):
+
+    """
+    Append income data to the existing month
+
+    """
+    while True:
+        category, outgoings = input("Type in outgoings name and amount (sample: shop, 2000): "
+                ).split(',')
+        tracker.append_row([new_month, category, ', ', outgoings])
+        data[new_month]['category'].append(category)
+        data[new_month]['income'].append(outgoings)
+        print(f"Added {outgoings} to {category} for {new_month}.\n")
+        
+        decision = input("Type 'x' + 'ENTER' if you are done adding outgoings \n")
+        if decision.lower() == "x":
+            break
 
 
 def chose_category(new_month):
@@ -90,7 +108,7 @@ def chose_category(new_month):
                 category, outgoings = input(
                         "Type outgoings name and amount(e.g., shop, 150): "
                         ).split(',')
-                add_outgoings(new_month, category, outgoings)
+                add_outgoings(new_month)
                 break
             else:
                 print('Number Out Of Range.\n')
@@ -116,13 +134,18 @@ def generate_month():
                 if full_month_name in existing_months:
                     print(f'{full_month_name} Already Exists')
                     print('Please Add A New Month')
+                    print("Type 'x' + 'ENTER' if you want to edit the month \n")
+                    decision = input("Type 'x' + 'ENTER' if you are done adding outgoings \n")
+                    if decision.lower() == "x":
+                        chose_category(new_month)
+                        break
                     continue
                
                 else:
                     print(f"Creating new month: {full_month_name}")
                     # append month to the google sheet tracker
                     tracker.append_row([full_month_name])
-                    existing_months.append(full_month_name)
+                    #existing_months.append(full_month_name)
                     data[full_month_name] = {
                             "category": [], "income": [], "outgoings": []}
                     print(f"{full_month_name} has been added sucessfully")
@@ -144,8 +167,8 @@ def main():
 
 
     print('*** WELCOME TO BUDGET TRACKER ***\n')
-    print('Would you like to get clear on where your money goes?\n')
-    print("Let's get started!\n")
+    print('WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES ?\n')
+    print("LET'S GET STARTED THEN!\n")
 
 
     # loop throught the choices2
@@ -156,7 +179,8 @@ def main():
         print('2. Generate Budget\n')
         print('3. Edit Budget\n')
         try:
-            choice = int(input('Please Enter Your Choice ( 1, 2 or 3) Here: '))
+            choice = int(input('Enter Your Choice ( 1, 2 or 3) Here:  '))
+            print("\n")
             if choice == 1:
                 display_summary()
                 break
