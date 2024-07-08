@@ -48,22 +48,11 @@ full_months = [
 # Create a dictionary for month abbreviations
 # only first 3 letters needed, making it easy for the user
 month_abbr = {month[:3].capitalize(): month for month in full_months}
+#set new_month as global variable to acess throughout the code 
+new_month = ""
+
 data= {}
 
-
-def budget_summary():
-    """
-    Filter through the data and display only one with coresponding month
-    """
-    month_rows = []
-    for row in all_values:
-        if row [0] == new_month :
-            month_rows.append(row)
-    print(month_rows)
-    
-    
- 
-budget_summary()
 
 
 
@@ -72,7 +61,8 @@ def budget_decision():
     Display 3 options to the user with chocie to make after budget data is enetered.
     Decision to make a choice between viewing summary, view details ,editing 
     """
-    
+    global new_month
+
     while True:
         print('Question:  "What would you like to do now? \n')
         print('1. Display Budget Summary \n')
@@ -82,7 +72,7 @@ def budget_decision():
             choice = int(input('Enter Your Choice ( 1, 2 or 3) Here:  '))
             print("\n")
             if choice == 1:
-                display_budget()
+                budget_summary(new_month)
                 break
             elif choice == 2:
                 add_income(new_month)
@@ -176,6 +166,8 @@ def generate_month():
     Confirm weather or not month exists in the tracking list.
     If not generate new one and append tothe lsit
     """
+    global new_month
+
     print('Please Type First 3 letters Of The Month You Wish To Add:')
     while True:
         try:
@@ -197,7 +189,7 @@ def generate_month():
                 else:
                     print(f"Creating new month: {new_month}")
                     # append month to the google sheet tracker
-                    #tracker.append_row([new_month])
+                    #tracker.append_row([new_month, '', '', ''])
                     #existing_months.append(new_month)
                     data[new_month] = {
                             "category": [], "income": [], "outgoings": []}
@@ -212,6 +204,30 @@ def generate_month():
         continue
 
 
+def budget_summary(new_month):
+    """
+    Filter through the data and display only one with coresponding month
+    """
+    #pull data from tracker worksheet
+    all_values = tracker.get_all_values()
+
+    #list to collect all the data with chosen month
+    month_rows = []
+    
+    for row in all_values:
+        if row [0] == new_month:
+            month_rows.append(row)
+
+    #append filtered rows to the summary worksheets
+    for row in month_rows:
+        summary.append_row(row)
+
+    if not month_rows:
+        print(f"no data available for {new_month}.")
+    else:
+        print(f"Data for {new_month}:")
+        for row in month_rows:
+            print(row)
 
 
 def main():
@@ -255,7 +271,7 @@ def main():
 
 
 # calling the main function
-#main()
+main()
 
 
 
