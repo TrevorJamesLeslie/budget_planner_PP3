@@ -44,11 +44,20 @@ new_month = ""
 data = {}
 
 
+def chose_month():
+    """
+    Ask user for a month that they are interested in.
+    """
+    while True:
+        print("What month are you interested in ? ")
+        user_input = input().strip().capitalize()
+        month = month_abbr.get(user_input)
+        if month:
+            return month
+        else:
+            print(f"{user_input} does not match any of the months name. Please try again. ")
 
-
-def budget_decision():
-    global new_month
-
+def budget_decision(new_month):
     while True:
         print('Question:  "What would you like to do now? \n')
         print('1. Display Budget Summary \n')
@@ -81,12 +90,12 @@ def add_income(new_month):
     while True:
         try:
             category, income = input("INCOME: Type in name and amount (e.g.: salary, 2000): "
-                    ).split(',') 
+                    ).split(',')
             tracker.append_row([new_month, category.strip(), income.strip(), ''])
             #create a key :value dict where key is not changing
-            data.setdefault(new_month, {'category': [], 'income': [], 'outgoings': []})
-            data[new_month]['category'].append(category.strip())
-            data[new_month]['income'].append(income.strip())
+            data.setdefault(new_month, {'Category': [], 'Income': [], 'Outgoings': []})
+            data[new_month]['Category'].append(category.strip())
+            data[new_month]['Income'].append(income.strip())
             print(f"Added {income} to {category} for {new_month}.\n")
         except ValueError:
             print('Invalid input format, Please use format: "name, amount". ')
@@ -107,9 +116,9 @@ def add_outgoings(new_month):
         try:
             category, outgoings = input("OUTGOINGS: Type in name and amount (e.g.: shop, 2000): ").split(',')
             tracker.append_row([new_month, category.strip(), '', outgoings.strip()])
-            data.setdefault(new_month, {'category': [], 'income': [], 'outgoings': []})
-            data[new_month]['category'].append(category.strip())
-            data[new_month]['outgoings'].append(outgoings.strip())
+            data.setdefault(new_month, {'Category': [], 'Income': [], 'Outgoings': []})
+            data[new_month]['Category'].append(category.strip())
+            data[new_month]['Outgoings'].append(outgoings.strip())
             print(f"Added {outgoings} to {category} for {new_month}.\n")
         except ValueError:
             print('Invalid input format, Please use format: "name, amount". ')
@@ -131,8 +140,6 @@ def chose_category(new_month):
         print('Please chose your category(type in number only: 1 or 2): \n')
         print('1. Income \n')
         print('2. Outgoings \n')
-
-
         try:
             choice = int(input('Please Enter Your Choice Here: ').strip())
             if choice == 1:
@@ -155,50 +162,37 @@ def generate_month():
     Confirm weather or not month exists in the tracking list.
     If not generate new one and append tothe lsit
     """
-    global new_month
-
-    print('Please Type First 3 letters Of The Month You Wish To Add:')
-    while True:
-        try:
-            user_input = input().strip().capitalize()
-            new_month = month_abbr.get(user_input)
-            if new_month:
-                if new_month in existing_months:
-                    print(f'{new_month} Already Exists')
-                    print('Please Add a New Month or :')
-                    print("1. Type 'e' and pess 'ENTER' to EDIT the month \n")
-                    print("2. Type 'x' and press 'ENTER' to EXIT \n")
-                    decision = input().strip()
-                    if decision.lower() == 'e':
-                        chose_category(new_month)
-                    elif decision.lower() == 'x':
-                        print("Exiting to main menu.")
-                        break
-                else:
-                    print(f"Creating new month: {new_month}")
-                    # append month to the google sheet tracker
-                    #tracker.append_row([new_month, '', '', ''])
-                    #existing_months.append(new_month)
-                    data[new_month] = {"category": [], "income": [], "outgoings": []}
-                    print(f"{new_month} has been added sucessfully\n")
-                    ("\n")
-                    chose_category(new_month)
-                    break
-            else:
-                print(f"{user_input} does not match the criteria: \n")
-        except ValueError:
-            print('Invalid Data.\n')
+    new_month = chose_month()
+    if new_month in existing_months:
+        print(f'{new_month} Already Exists')
+        print('Please Add a New Month or :')
+        print("1. Type 'e' and pess 'ENTER' to EDIT the month \n")
+        print("2. Type 'x' and press 'ENTER' to EXIT \n")
+        decision = input().strip()
+        if decision.lower() == 'e':
+            chose_category(new_month)
+        elif decision.lower() == 'x':
+            print("Exiting to main menu.")
+    else:
+        print(f"Creating new month: {new_month}")
+        # append month to the google sheet tracker
+        #tracker.append_row([new_month, '', '', ''])
+        #existing_months.append(new_month)
+        data[new_month] = {"Category": [], "Income": [], "Outgoings": []}
+        print(f"{new_month} has been added sucessfully\n")
+        ("\n")
+        chose_category(new_month)      
+   
 
 def budget_summary(new_month):
     """
     Filter through the data and display only one with coresponding month
     """
+
     # Pull data from tracker worksheet
     all_values = tracker.get_all_values()
-
     # List to collect all the data with chosen month
     month_rows = []
-    
     total_income = 0 
     total_outgoings = 0
 
@@ -213,11 +207,10 @@ def budget_summary(new_month):
 
     # Calculate balance
     balance = total_income - total_outgoings
-
     # Append totals to the 'summary' worksheet
     summary.append_row([new_month, total_income, total_outgoings, balance])
 
-    summary_data = {"month": [new_month], "total income": [total_income], "total outgoings": [total_outgoings], "balance": [balance]}
+    summary_data = {"Month": [new_month], "Total income": [total_income], "Total outgoings": [total_outgoings], "balance": [balance]}
 
 
     if not month_rows:
@@ -226,9 +219,23 @@ def budget_summary(new_month):
         print(f"Data for {new_month}:")
         for row in month_rows:
             print(row)
-        print(f'Total Income: {total_income}, Total Outgoings :{total_outgoings}, Balance: {balance}')
-        
+        print(f'Summary for {new_month}: Total Income: {total_income}, Total Outgoings :{total_outgoings}, Balance: {balance}')
     return summary_data
+
+def summary_month():
+    """ 
+    Ask user for the month and chack if exists in the spreadsheet 
+    """
+    while True:
+        try:
+            new_month = chose_month()
+            #display budget summary for the selected month
+            budget_summary(new_month)
+            break 
+        except ValueError:
+            print("Invalid data.")
+
+
 
 def main():
     """
@@ -252,13 +259,16 @@ def main():
             choice = int(input('Enter Your Choice ( 1, 2 or 3) Here:  ').strip())
             print("\n")
             if choice == 1:
+                chose_month()
+                continue
                 budget_summary(new_month)
                 break
             elif choice == 2:
                 generate_month()
                 break
             elif choice == 3:
-                edit_budget()
+
+                chose_category(new_month)
                 break
             else:
                 print('Number Out Of Range.\n')
