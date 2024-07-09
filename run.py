@@ -96,7 +96,7 @@ def add_income(new_month):
     """
     while True:
         category, income = input("INCOME: Type in name and amount (e.g.: salary, 2000): "
-                ).split(',')
+                ).split(',') 
         tracker.append_row([new_month, category, income, '  '])
         data[new_month]['category'].append(category)
         data[new_month]['income'].append(income)
@@ -146,9 +146,6 @@ def chose_category(new_month):
                 add_income(new_month)
                 break
             elif choice == 2:
-                category, outgoings = input(
-                        "Type outgoings name and amount(e.g., shop, 150): "
-                        ).split(',')
                 add_outgoings(new_month)
                 break
             else:
@@ -179,7 +176,7 @@ def generate_month():
                     print('Please Add A New Month or :')
                     print("1. Type 'e' and pess 'ENTER' to EDIT the month \n")
                     print("2. Type 'x' and press 'ENTER' to EXIT \n")
-                    decision = input("Type 'x' + 'ENTER' if you are done adding outgoings \n")
+                    decision = input()
                     if decision.lower() == 'e':
                         chose_category(new_month)
                     elif decision.lower() == 'x':
@@ -208,19 +205,34 @@ def budget_summary(new_month):
     """
     Filter through the data and display only one with coresponding month
     """
-    #pull data from tracker worksheet
+    # Pull data from tracker worksheet
     all_values = tracker.get_all_values()
 
-    #list to collect all the data with chosen month
+    # List to collect all the data with chosen month
     month_rows = []
     
+    total_income = 0 
+    total_outgoings = 0
+    balance = 0
+
     for row in all_values:
         if row [0] == new_month:
             month_rows.append(row)
 
-    #append filtered rows to the summary worksheets
+    # Append filtered rows to the summary worksheets
     for row in month_rows:
-        summary.append_row(row)
+        income = int(row[2]) if row[2] else 0
+        outgoings = int(row[4]) if row[4] else 0
+
+    total_income += income
+    total_outgoings += outgoings
+
+    # Calculate balance
+    balance = total_income - total_outgoings
+
+    # Append totals to the 'summary' worksheet
+    summary.append_row([new_month, total_income, total_outgoings, balance])
+    
 
     if not month_rows:
         print(f"no data available for {new_month}.")
@@ -228,6 +240,7 @@ def budget_summary(new_month):
         print(f"Data for {new_month}:")
         for row in month_rows:
             print(row)
+        print(f'Total Income: {total_income}, Total Outgoings :{total_outgoings}, Balance: {balance}')
 
 
 def main():
@@ -252,7 +265,7 @@ def main():
             choice = int(input('Enter Your Choice ( 1, 2 or 3) Here:  '))
             print("\n")
             if choice == 1:
-                display_summary()
+                budget_summary(new_month)
                 break
             elif choice == 2:
                 generate_month()
