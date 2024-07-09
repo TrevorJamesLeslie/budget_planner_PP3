@@ -41,7 +41,7 @@ full_months = [
 month_abbr = {month[:3].capitalize(): month for month in full_months}
 #set new_month as global variable to acess throughout the code 
 new_month = ""
-data= {}
+data = {}
 
 
 
@@ -55,7 +55,7 @@ def budget_decision():
         print('2. Edit Current Budget \n')
         print('3. EXIT \n')
         try:
-            choice = int(input('Enter Your Choice (1, 2 or 3) Here: '))
+            choice = int(input('Enter Your Choice (1, 2 or 3) Here: ').strip())
             print("\n")
             if choice == 1:
                 budget_summary(new_month)
@@ -64,7 +64,7 @@ def budget_decision():
                 add_income(new_month)
                 break
             elif choice == 3:
-                main()
+                print("Exiing the program")
                 break
             else:
                 print('Number Out Of Range.\n')
@@ -105,9 +105,8 @@ def add_outgoings(new_month):
     """
     while True:
         try:
-            category, outgoings = input("OUTGOINGS: Type in name and amount (e.g.: shop, 2000): "
-                    ).split(',')
-            tracker.append_row([new_month, category.strip(), ' ', outgoings.strip()])
+            category, outgoings = input("OUTGOINGS: Type in name and amount (e.g.: shop, 2000): ").split(',')
+            tracker.append_row([new_month, category.strip(), '', outgoings.strip()])
             data.setdefault(new_month, {'category': [], 'income': [], 'outgoings': []})
             data[new_month]['category'].append(category.strip())
             data[new_month]['outgoings'].append(outgoings.strip())
@@ -116,7 +115,7 @@ def add_outgoings(new_month):
             print('Invalid input format, Please use format: "name, amount". ')
             continue    
         
-        decision = input("Type 'x' + 'ENTER' if you are done adding outgoings \n")
+        decision = input("Type 'x' + 'ENTER' if you are done adding outgoings: \n")
         if decision.lower() == "x":
             budget_decision()
             break
@@ -135,7 +134,7 @@ def chose_category(new_month):
 
 
         try:
-            choice = int(input('Please Enter Your Choice Here: '))
+            choice = int(input('Please Enter Your Choice Here: ').strip())
             if choice == 1:
                 add_income(new_month)
                 break
@@ -169,19 +168,18 @@ def generate_month():
                     print('Please Add a New Month or :')
                     print("1. Type 'e' and pess 'ENTER' to EDIT the month \n")
                     print("2. Type 'x' and press 'ENTER' to EXIT \n")
-                    decision = input()
+                    decision = input().strip()
                     if decision.lower() == 'e':
                         chose_category(new_month)
                     elif decision.lower() == 'x':
-                        main()
-                    break
+                        print("Exiting to main menu.")
+                        break
                 else:
                     print(f"Creating new month: {new_month}")
                     # append month to the google sheet tracker
                     #tracker.append_row([new_month, '', '', ''])
                     #existing_months.append(new_month)
-                    data[new_month] = {
-                            "category": [], "income": [], "outgoings": []}
+                    data[new_month] = {"category": [], "income": [], "outgoings": []}
                     print(f"{new_month} has been added sucessfully\n")
                     ("\n")
                     chose_category(new_month)
@@ -190,7 +188,6 @@ def generate_month():
                 print(f"{user_input} does not match the criteria: \n")
         except ValueError:
             print('Invalid Data.\n')
-
 
 def budget_summary(new_month):
     """
@@ -252,7 +249,7 @@ def main():
         print('2. Generate Budget\n')
         print('3. Edit Budget\n')
         try:
-            choice = int(input('Enter Your Choice ( 1, 2 or 3) Here:  '))
+            choice = int(input('Enter Your Choice ( 1, 2 or 3) Here:  ').strip())
             print("\n")
             if choice == 1:
                 budget_summary(new_month)
