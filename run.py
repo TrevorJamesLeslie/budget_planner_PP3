@@ -97,7 +97,7 @@ def add_income(new_month):
         print("Add More - press ENTER ")
         print("Go To Next Stage - Type 'N' \n")
         decision = input()
-        if decision.lower() == "N":
+        if decision.lower() == "n":
             add_outgoings(new_month)
             break
 
@@ -124,7 +124,7 @@ def add_outgoings(new_month):
         print("Add More - press ENTER ")
         print("Go To Next Stage - Type 'N' \n")
         decision = input()
-        if decision.lower() == "N":
+        if decision.lower() == "n":
             budget_decision()
             break
        
@@ -229,7 +229,6 @@ def budget_summary(new_month):
     summary_data = {"Month": [new_month], "Total income": [total_income], "Total outgoings": [total_outgoings], "balance": [balance]}
 
 
-
     if not month_rows:
         print(f"no data available for {new_month}.")
     else:
@@ -248,23 +247,23 @@ def chose_month():
 
     global new_month
 
+    print("What month are you interested in ? ")
     while True:
         try:
-            print("What month are you interested in ? ")
-
             user_input = input().strip().capitalize()
             new_month = month_abbr.get(user_input)
             if new_month in existing_months:
                 budget_summary(new_month)
-            else:
-                print(f'{new_month} Have No Data')
-                print("1. To EDIT month - Type 'E' and press 'ENTER' \n")
+            else: 
+                if new_month in full_months and new_month not in existing_months:
+                    print(f'{new_month} Have No Current Record')
+                print("1. To Generate New Month - Type 'G' \n")
                 print("2. Go Back To Main Menu - press 'B' \n")
                 decision = input().strip()
-                if decision.lower() == 'B':
+                if decision.lower() == 'g':
+                    generate_month()
+                elif decision.lower() == 'b':
                     main()
-                elif decision.lower() == 'X':
-                    print("Exiting to main menu.")
                     break
         except ValueError:
             print('Invalid Data. Please Try Again\n')
