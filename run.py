@@ -46,9 +46,7 @@ full_months = [
 ]
 
 
-
-# Create a dictionary for month abbreviations
-# this line was created with help of chat GPT)
+#(this line was created with help of chat GPT)
 # only first 3 letters needed, making it easy for the user
 month_abbr = {month[:3].capitalize(): month for month in full_months}
 #set new_month as global variable to acess throughout the code
@@ -85,8 +83,59 @@ def budget_decision():
             print('Invalid Data. Please Enter Number From The List.\n')
 
 ###############################################################################
+def income_categories(new_month):
+    """
+    User can chose from list of categories to add income
+    """
+    while True:
+        clearScreen()
+        print(f'What INCOME Are You Interested In for {new_month} ? ')
+        print('Number value only: 1, 2, 3 ,4): \n')
+        print('1. Salary')
+        print('2. Sales')
+        print('3. Add New Income')
+        print('4. Skip to Outgoings')
+        print('5. Main Menu \n')
+        try:
+            choice = int(input('Please Enter Your Choice Here: ').strip())
+            if choice == 1:
+                category = "Salary"
+                print("What is Your INCOME from SALARY: ")
+                income = int(input().strip())
+                tracker.append_row([new_month, category, income, ''])
+                data.setdefault(new_month, {'Category': [], 'Income': [], 'Outgoings': []})
+                data[new_month]['Category'].append(category)
+                data[new_month]['Income'].append(income)
+                break
 
+            elif choice == 2:
+                category = "Sales"
+                print("What is Your INCOME from SALES : ")
+                income = int(input().strip())
+                tracker.append_row([new_month, category, income, ''])
+                data.setdefault(new_month, {'Category': [], 'Income': [], 'Outgoings': []})
+                data[new_month]['Category'].append(category)
+                data[new_month]['Income'].append(income)
+                break
+            elif choice == 3:
+                add_income(new_month)
+                break
+            elif choice == 4:
+                outgoings_categories(new_month)
+                break
+            elif choice == 5:
+                main()
+                break
+            elif choice == '':
+                continue
 
+            else:
+                print('Number Out Of Range.\n')
+                print('Please Enter Number From The List Provided:\n')
+        except ValueError:
+            print('Invalid Data. Please Enter Number From The List.\n')
+
+############################################################################################
 
 def add_income(new_month):
 
@@ -182,10 +231,10 @@ def chose_category(new_month):
         try:
             choice = int(input('Please Enter Your Choice Here: ').strip())
             if choice == 1:
-                add_income(new_month)
+                income_categories(new_month)
                 break
             elif choice == 2:
-                add_outgoings(new_month)
+                outgoings_categories(new_month)
                 break
             elif choice == 3:
                 print("Exitng the program")
@@ -366,7 +415,7 @@ def main():
             print('Invalid Data. Please Enter Number From The List.\n')
 
 
-add_income(new_month)
+
 # calling the main function
 main()
 
