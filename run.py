@@ -19,10 +19,6 @@ SHEET = GSPREAD_CLIENT.open('budget_planner')
 
 
 
-
-
-
-
 tracker = SHEET.worksheet('tracker')
 summary = SHEET.worksheet('summary')
 
@@ -98,10 +94,10 @@ def add_income(new_month):
             print('Invalid input format, Please use format: "name, amount". \n')
             continue
 
-        print("ENTER to Add more")
-        print("Type 'n' - Go To Next Stage\n")
+        print("Add More - press ENTER ")
+        print("Go To Next Stage - Type 'N' \n")
         decision = input()
-        if decision.lower() == "n":
+        if decision.lower() == "N":
             add_outgoings(new_month)
             break
 
@@ -125,25 +121,24 @@ def add_outgoings(new_month):
             print('Invalid input format, Please use format: "name, amount". \n')
             continue
 
-        print("press ENTER - Keep Adding \n")
-        print("type 'n' - Next Stage : \n")
+        print("Add More - press ENTER ")
+        print("Go To Next Stage - Type 'N' \n")
         decision = input()
-        if decision.lower() == "n":
-            add_outgoings(new_month)
+        if decision.lower() == "N":
+            budget_decision()
             break
        
 def chose_category(new_month):
     """
-    Let user chose what wether category is income or outcome
+    Let user chose whatever category (income or outcome).
     """
     while True:
         print('What Category You Are Interested In? ')
-        print('Choose From Options Below\n')
         print('Please chose your category(type in number only: 1 or 2): \n')
         print('1. Income \n')
         print('2. Outgoings \n')
         try:
-            choice = int(input('Please Enter Your Choice Here: ').strip())
+            choice = int(input('Please Enter Your Choice Here: \n').strip())
             if choice == 1:
                 add_income(new_month)
                 break
@@ -166,16 +161,15 @@ def generate_month():
     """
     global new_month
 
-
-    print('Please Type First 3 letters Of The Month You Wish To Add:')
+    print('Please Type First 3 letters Of The Month You Wish To Add:\n')
     while True:
         try:
-            user_input = input().strip().capitalize()
+            user_input = input("\n").strip().capitalize()
             new_month = month_abbr.get(user_input)
             if new_month:
                 if new_month in existing_months:
                     print(f'{new_month} Already Exists')
-                    print('Please Add a New Month or :')
+                    print('Please Add a New Month or :\n')
                     print("1. Type 'e' and pess 'ENTER' to EDIT the month \n")
                     print("2. Type 'x' and press 'ENTER' to EXIT \n")
                     decision = input().strip()
@@ -209,7 +203,6 @@ def budget_summary(new_month):
     # Pull data from tracker worksheet
     all_values = tracker.get_all_values()
 
-
     # List to collect all the data with chosen month
     month_rows = []
    
@@ -233,10 +226,7 @@ def budget_summary(new_month):
 
     # Append totals to the 'summary' worksheet
     summary.append_row([new_month, total_income, total_outgoings, balance])
-
-
     summary_data = {"Month": [new_month], "Total income": [total_income], "Total outgoings": [total_outgoings], "balance": [balance]}
-
 
 
 
@@ -251,20 +241,33 @@ def budget_summary(new_month):
 
 
 
-
 def chose_month():
     """
     fetch month that user is interested in.
     """
+
+    global new_month
+
     while True:
         try:
             print("What month are you interested in ? ")
+
             user_input = input().strip().capitalize()
             new_month = month_abbr.get(user_input)
+            if new_month in existing_months:
+                budget_summary(new_month)
+            else:
+                print(f'{new_month} Have No Data')
+                print("1. To EDIT month - Type 'E' and press 'ENTER' \n")
+                print("2. Go Back To Main Menu - press 'B' \n")
+                decision = input().strip()
+                if decision.lower() == 'B':
+                    main()
+                elif decision.lower() == 'X':
+                    print("Exiting to main menu.")
+                    break
         except ValueError:
-            print('Invalid Data.\n')
-    print(new_month)
-
+            print('Invalid Data. Please Try Again\n')
 
 
 
@@ -274,13 +277,9 @@ def main():
     """
 
 
-
-
     print('*** WELCOME TO BUDGET TRACKER ***\n')
     print('WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES ?\n')
     print("LET'S GET STARTED THEN!\n")
-
-
 
 
     # loop throught the choices2
@@ -295,7 +294,6 @@ def main():
             print("\n")
             if choice == 1:
                 chose_month()
-                budget_summary(new_month)
                 break
             elif choice == 2:
                 generate_month()
