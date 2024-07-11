@@ -39,11 +39,11 @@ all_values = tracker.get_all_values()
 existing_months = tracker.col_values(1)[1:]  # columns are 1 based not 0
 
 
-
 full_months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ]
+
 
 
 #(this line was created with help of chat GPT)
@@ -53,6 +53,46 @@ month_abbr = {month[:3].capitalize(): month for month in full_months}
 new_month = ""
 data = {}
 
+def catch_month():
+    """
+    Function to catch month that user wants to interact with 
+    """
+    global new_month
+    
+    while True:
+        clearScreen()
+        print('What Month You Are Interested In ? Type first 3 letters only:\n')
+        print(('egzample: "mar" for "March" \n'))
+        try:
+            user_input = input().strip().capitalize()
+            new_month = month_abbr.get(user_input)
+
+            if new_month is None:
+                print('Invalid Input. Please type first 3 letters only( e.g. "mar" for March')
+                continue
+
+            if new_month in existing_months:
+                break
+
+            elif new_month in full_months and new_month not in existing_months:
+                
+                print(f'{new_month} Have No Current Record')
+                print("What Would You Like To Do ? \n")
+                print("1. Generate New Month")
+                print("2. Go Back To Main Menu \n")
+                print( "Press ENTER to Try Again")
+
+                choice = input().strip()
+                if choice == '1':
+                    generate_month()
+                elif choice == '2':
+                    main()
+                    break 
+                elif choice == '':
+                    continue
+            
+        except ValueError:
+            print('Invalid Data')
 
 
 def budget_decision():
@@ -514,6 +554,7 @@ def main():
                 month_summary()
                 break
             elif choice == 2:
+
                 generate_month()
                 break
             elif choice == 3:
@@ -533,10 +574,9 @@ def main():
             print('Invalid Data. Please Enter Number From The List.\n')
 
 
-delete_entry(new_month)
 # calling the main function
-main()
-
+#main()
+catch_month()
 
 
 
