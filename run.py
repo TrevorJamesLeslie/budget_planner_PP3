@@ -90,7 +90,7 @@ def catch_month():
                 elif choice == '':
                     continue
         except ValueError:
-            print('Invalid Data. Please try again)
+            print('Invalid Data. Please try again')
 
 
 def budget_decision():
@@ -102,7 +102,7 @@ def budget_decision():
         print('2. Edit Current Budget \n')
         print('3. EXIT \n')
         try:
-            choice = int(input('Enter Your Choice (1, 2 or 3) Here: ').strip())
+            choice = int(input('Enter Your Choice (1, 2 or 3) Here: \n').strip())
             print("\n")
             if choice == 1:
                 budget_summary(new_month)
@@ -136,7 +136,7 @@ def income_categories(new_month):
         print('4. Skip to Outgoings')
         print('5. Main Menu \n')
         try:
-            choice = int(input('Please Enter Your Choice Here: ').strip())
+            choice = int(input('Please Enter Your Choice Here: \n').strip())
             if choice == 1:
                 category = "Salary"
                 print("What is Your INCOME from SALARY: ")
@@ -204,8 +204,8 @@ def add_income(new_month):
             clearScreen()
             print(f"Added {income} to {category} for {new_month}.\n")
         except ValueError:
-            print('Invalid input)
-            print("Please use format: name, amount(number only).\n')
+            print('Invalid input')
+            print('Please use format: name, amount(number only).\n')
 
         print("Press ENTER To Continue, or Chose From Option Below: \n")
         print("1. Outgoings ")
@@ -244,7 +244,7 @@ def outgoings_categories(new_month):
         print('11. Main Menu \n')
 
         try:
-            choice = int(input('Please Enter Your Choice Here: ').strip())
+            choice = int(input('Please Enter Your Choice Here: \n').strip())
             if choice >= 1 and choice <= 9:
                 category = outgoings_list[choice - 1]
                 print(f"What is Your OUTGOINGS Amount for {category.upper()}")
@@ -287,7 +287,7 @@ def add_outgoings(new_month):
         clearScreen()
         try:
             print(f"{new_month} OUTGOINGS:")
-            print(Type in name and amount(e.g.: Shop, 2000): \n")
+            print("Type in name and amount(e.g.: Shop, 2000): \n")
             print('*Please ensure that amount has a number value\n')
             category, outgoings = input().split(',')
             tracker.append_row([
@@ -336,7 +336,7 @@ def chose_category(new_month):
                 print('3. EXIT \n')
                 try:
                     choice = int(input(
-                            'Please Enter Your Choice Here: ').strip())
+                            'Please Enter Your Choice Here: \n').strip())
                     if choice == 1:
                         income_categories(new_month)
                         break
@@ -443,9 +443,9 @@ def budget_summary(new_month):
     if not month_rows:
         print(f"no data available for {new_month}.")
     else:
-        print(f'Summary for {
-            new_month}: Total Income: {total_income},
-            Total Outgoings: {total_outgoings}, Balance: {balance} \n')
+        print(
+            f'Summary for {new_month}: Total Income: {total_income}, '
+            f'Total Outgoings: {total_outgoings}, Balance: {balance} \n')
 
         print(f"Detailed Data for {new_month}:\n")
         for row in month_rows:
@@ -499,8 +499,9 @@ def display_data():
         return
 
     # design the table
-    print(f"{'Index': < 5}{'Month': < 10}{
-            'Category': < 20}{'Income': < 10}{'Outgoings': < 10}")
+    print(
+        f"{'Index': < 5}{'Month': < 10}{'Category': < 20}"
+        f"{'Income': < 10}{'Outgoings': < 10}")
     print("_" * 60)
 
     for index, row in enumerate(all_values):
@@ -508,8 +509,9 @@ def display_data():
         category = row[1]
         income = row[2] if row[2] else '0'
         outgoings = row[3] if row[3] else '0'
-        print(f"{index: < 5}{month: < 10}{
-                category: < 20}{income: < 10}{outgoings: < 10}")
+        print(
+            f'{index: < 5}{month: < 10}{category: < 20}'
+            f'{income: < 10}{outgoings: < 10}')
 
 
 def delete_entry(new_month):
@@ -527,7 +529,7 @@ def delete_entry(new_month):
             display_data()
             print("\n")
             index_to_delete = int(input(
-                    'What index line you wish to delete? :').strip())
+                    'What index line you wish to delete? \n').strip())
             if index_to_delete > 0 and index_to_delete < len(all_values):
                 tracker.delete_rows(index_to_delete + 1)  # +1indices start at1
                 print(f'Entry at index {
@@ -559,7 +561,7 @@ def main():
         print('4. EXIT\n')
         try:
             choice = int(input(
-                    'Choice: 1, 2, 3, 4. Please Enter Number: ').strip())
+                    'Choice: 1, 2, 3, 4. Please Enter Number: \n').strip())
             print("\n")
             if choice == 1:
                 month_summary()
