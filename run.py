@@ -83,6 +83,61 @@ def budget_decision():
             print('Invalid Data. Please Enter Number From The List.\n')
 
 ###############################################################################
+def outgoings_categories(new_month):
+    """
+   List of categories to chose from in outgoings
+    """
+    # create list of outgoings to chose from 
+    outgoings_list = [
+        'House Bills', 'School', 'Creche', 'Shopping', 'Cars', 'Health',
+        'Entertainment', 'Holidays', 'Other', 'Add More'
+        ]
+
+    while True:
+        clearScreen()
+        print(f'What OUTGOINGS Are You Interested In for {new_month} ? ')
+        print('Number Value between 1 - 11 only): \n')
+        for i, category in enumerate(outgoings_list, 1):
+            print(f'{i}. {category}')
+
+        print('11. Main Menu \n')
+        
+
+        try:
+            choice = int(input('Please Enter Your Choice Here: ').strip())
+            if choice >= 1 and choice <= 9:
+                category = outgoings_list[choice -1]
+                print(f"What is Your OUTGOINGS Amount for {category.upper()}")
+                outgoings = int(input().strip())
+                tracker.append_row([new_month, category,'', outgoings])
+                data.setdefault(new_month, {'Category': [], 'Income': [], 'Outgoings': []})
+                data[new_month]['Category'].append(category)
+                data[new_month]['Outgoings'].append(outgoings)
+                continue
+
+            elif choice == 2:
+                category = "Sales"
+                print("What is Your INCOME from SALES : ")
+                income = int(input().strip())
+                tracker.append_row([new_month, category, income, ''])
+                data.setdefault(new_month, {'Category': [], 'Income': [], 'Outgoings': []})
+                data[new_month]['Category'].append(category)
+                data[new_month]['Income'].append(income)
+                continue
+            elif choice == 11:
+                main()
+                break
+            elif choice == '':
+                continue
+            else:
+                print('Number Out Of Range.\n')
+                print('Please Enter Number From The List Provided:\n')
+        except ValueError:
+            print('Invalid Data. Please Enter Number From The List.\n')
+
+
+
+
 def income_categories(new_month):
     """
     User can chose from list of categories to add income
@@ -90,7 +145,7 @@ def income_categories(new_month):
     while True:
         clearScreen()
         print(f'What INCOME Are You Interested In for {new_month} ? ')
-        print('Number value only: 1, 2, 3 ,4): \n')
+        print('Number value only: 1, 2, 3, 4, 5): \n')
         print('1. Salary')
         print('2. Sales')
         print('3. Add New Income')
@@ -106,7 +161,7 @@ def income_categories(new_month):
                 data.setdefault(new_month, {'Category': [], 'Income': [], 'Outgoings': []})
                 data[new_month]['Category'].append(category)
                 data[new_month]['Income'].append(income)
-                break
+                continue
 
             elif choice == 2:
                 category = "Sales"
@@ -116,7 +171,8 @@ def income_categories(new_month):
                 data.setdefault(new_month, {'Category': [], 'Income': [], 'Outgoings': []})
                 data[new_month]['Category'].append(category)
                 data[new_month]['Income'].append(income)
-                break
+                continue
+
             elif choice == 3:
                 add_income(new_month)
                 break
@@ -128,7 +184,6 @@ def income_categories(new_month):
                 break
             elif choice == '':
                 continue
-
             else:
                 print('Number Out Of Range.\n')
                 print('Please Enter Number From The List Provided:\n')
@@ -145,15 +200,15 @@ def add_income(new_month):
     while True:
         clearScreen()
         try:
-            print(f"{new_month}INCOME: Type in name and amount (e.g.: salary, 2000): ")
+            print(f"{new_month} INCOME: Type in name and amount (e.g.: salary, 2000): ")
             print('*Please ensure that amount has a number value\n')
             category, income = input().split(',')
-            tracker.append_row([new_month, category.strip(), int(income.strip()), ''])
+            tracker.append_row([new_month, category.strip().capitalize(), int(income.strip()), ''])
     
             #create a key :value dict where key is not changing
             data.setdefault(new_month, {'Category': [], 'Income': [], 'Outgoings': []})
-            data[new_month]['Category'].append(category.strip())
-            data[new_month]['Income'].append(int(income.strip()))
+            data[new_month]['Category'].append(category)
+            data[new_month]['Income'].append(int(income))
 
             clearScreen()
             print(f"Added {income} to {category} for {new_month}.\n")
@@ -187,12 +242,12 @@ def add_outgoings(new_month):
             print(f"{new_month}OUTGOINGS: Type in name and amount (e.g.: Shop, 2000): \n")
             print('*Please ensure that amount has a number value\n')
             category, outgoings = input().split(',')
-            tracker.append_row([new_month, category.strip(), int(outgoings.strip()), ''])
+            tracker.append_row([new_month, category.strip().capitalize(), int(outgoings.strip()), ''])
 
             #create a key :value dict where key is not changing
             data.setdefault(new_month, {'Category': [], 'Income': [], 'Outgoings': []})
-            data[new_month]['Category'].append(category.strip())
-            data[new_month]['Outgoings'].append(int(outgoings.strip()))
+            data[new_month]['Category'].append(category)
+            data[new_month]['Outgoings'].append(int(outgoings))
 
             clearScreen()
             print(f"Added {outgoings} to {category} for {new_month}.\n")
@@ -215,36 +270,44 @@ def add_outgoings(new_month):
             continue
 
 
-
 def chose_category(new_month):
 
     """
     Let user chose whatever category (income or outcome).
     """
+
+    print('Please Type First 3 letters Of The Month You Are Interested In :\n')
     while True:
-        clearScreen()
-        print(f'What Category You Are Interested In for {new_month} ? ')
-        print('Number value only: 1,2 or 3): \n')
-        print('1. Income')
-        print('2. Outgoings')
-        print('3. EXIT \n')
         try:
-            choice = int(input('Please Enter Your Choice Here: ').strip())
-            if choice == 1:
-                income_categories(new_month)
-                break
-            elif choice == 2:
-                outgoings_categories(new_month)
-                break
-            elif choice == 3:
-                print("Exitng the program")
-                break
+            user_input = input().strip().capitalize()
+            new_month = month_abbr.get(user_input)
+            if new_month in existing_months:
+                clearScreen()
+                print(f'What Category You Are Interested In for {new_month} ? ')
+                print('Number value only: 1, 2 or 3): \n')
+                print('1. Income')
+                print('2. Outgoings')
+                print('3. EXIT \n')
+                try:
+                    choice = int(input('Please Enter Your Choice Here: ').strip())
+                    if choice == 1:
+                        income_categories(new_month)
+                        break
+                    elif choice == 2:
+                        outgoings_categories(new_month)
+                        break
+                    elif choice == 3:
+                        print("Exitng the program")
+                        break
+                    else:
+                        print('Number Out Of Range.\n')
+                        print('Please Enter Number From The List Provided:\n')
+                except ValueError:
+                    print('Invalid Data. Please Enter Number From The List.\n')
             else:
-                print('Number Out Of Range.\n')
-                print('Please Enter Number From The List Provided:\n')
+                print(f"{user_input} Does not match the criteria, please try again. \n")
         except ValueError:
             print('Invalid Data. Please Enter Number From The List.\n')
-
 
 
 def generate_month():
@@ -256,6 +319,7 @@ def generate_month():
 
     while True:
         clearScreen()
+        print('CREATING NEW MONTH \n')
         print('Please Type First 3 letters Of The Month You Wish To Add:\n')
         try:
             user_input = input().strip().capitalize()
@@ -341,15 +405,15 @@ def budget_summary(new_month):
 
 
 
-
 def summary_month():
     """
-    fetch month that user is interested in.
+    Prompt user for the month they are interested in.
+    Validate wheter it exists 
     """
 
     global new_month
 
-    print("What month are you interested in ? ")
+    print('Please Type First 3 letters Of The Month You Are Interested In :\n')
     while True:
         clearScreen()
         try:
@@ -360,6 +424,7 @@ def summary_month():
             else: 
                 if new_month in full_months and new_month not in existing_months:
                     print(f'{new_month} Have No Current Record')
+
                 print("1. To Generate New Month - Type 'G' \n")
                 print("2. Go Back To Main Menu - press 'B' \n")
                 decision = input().strip()
@@ -383,7 +448,7 @@ def main():
     print("LET'S GET STARTED THEN!\n")
 
 
-    # loop throught the choices2
+    # loop throught the choices
     # Source : Python Exception Handling(CI)
     while True:
         clearScreen()
@@ -415,6 +480,7 @@ def main():
             print('Invalid Data. Please Enter Number From The List.\n')
 
 
+outgoings_categories(new_month)
 
 # calling the main function
 main()
