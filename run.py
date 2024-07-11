@@ -405,7 +405,7 @@ def budget_summary(new_month):
 
 
 
-def summary_month():
+def month_summary():
     """
     Prompt user for the month they are interested in.
     Validate wheter it exists 
@@ -451,6 +451,7 @@ def display_data():
     if not all_values:
         print("Data is not availabe")
         return
+
     #design the table
     print(f"{'Index':<5}{'Month':<10}{'Category':<20}{'Income':<10}{'Outgoings':<10}")
     print("_" * 60)
@@ -462,6 +463,30 @@ def display_data():
         outgoings = row[3] if row [3] else '0'
         print(f"{index:<5}{month:<10}{category:<20}{income:<10}{outgoings:<10}")
 
+def delete_entry(new_month):
+    """
+    Delete data from the tracker worksheet based on user input.
+    """
+    all_values = tracker.get_all_values()
+
+    if not all_values:
+        print("No data available to Delete")
+        return
+
+    while True:
+        try:
+            display_data()
+            print("\n")
+            index_to_delete = int(input('What index line you wish to delete? :').strip())
+            if index_to_delete >= 0 and index_to_delete < len(all_values):
+                tracker.delete_rows(index_to_delete + 1)# +1 becaues indices start at 1
+                print(f'Entry at index {index_to_delete} has been deleted sucesfully')
+                continue
+            else:
+                print("Invalid index. Please enter number within the range shown.")
+        except ValueError:
+            print("invalid input. Please enter a number.")
+        
 def main():
     """
     Welcome Message to the user with options to chose from for the next step.
@@ -479,13 +504,14 @@ def main():
         print('Please choose from the following options: \n')
         print('1. Display Budget Summary\n')
         print('2. Generate Budget\n')
-        print('3. Edit Budget\n')
+        print('3. Edit Budget')
+        print('4. Delete Entry' )
         print('4. EXIT\n')
         try:
             choice = int(input('Choice: 1, 2, 3, 4. Please Enter Number: ').strip())
             print("\n")
             if choice == 1:
-                summary_month()
+                month_summary()
                 break
             elif choice == 2:
                 generate_month()
@@ -494,6 +520,9 @@ def main():
                 chose_category(new_month)
                 break
             elif choice == 4:
+                delete_entry(new_month)
+                break
+            elif choice == 5:
                 print("Exitng the program \n")
                 print("GOODBYE")
                 break
@@ -504,10 +533,9 @@ def main():
             print('Invalid Data. Please Enter Number From The List.\n')
 
 
-
-display_data()
+delete_entry(new_month)
 # calling the main function
-# main()
+main()
 
 
 
