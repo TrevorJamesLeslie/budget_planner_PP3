@@ -419,24 +419,31 @@ def summary_month():
         try:
             user_input = input().strip().capitalize()
             new_month = month_abbr.get(user_input)
+
             if new_month in existing_months:
                 budget_summary(new_month)
             else: 
                 if new_month in full_months and new_month not in existing_months:
                     print(f'{new_month} Have No Current Record')
 
-                print("1. To Generate New Month - Type 'G' \n")
-                print("2. Go Back To Main Menu - press 'B' \n")
-                decision = input().strip()
-                if decision.lower() == 'g':
+                print("1. To Generate New Month \n")
+                print("2. Go Back To Main Menu \n")
+                choice = input().strip()
+
+                if choice() == '1':
                     generate_month()
-                elif decision.lower() == 'b':
+                elif choice() == '2':
                     main()
                     break
         except ValueError:
             print('Invalid Data. Please Try Again\n')
 
 
+def display_data():
+    """
+    Display data to the user 
+    """
+    #display the data so that it can be acessed and deleted 
 
 def main():
     """
