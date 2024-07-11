@@ -439,11 +439,28 @@ def summary_month():
             print('Invalid Data. Please Try Again\n')
 
 
+
 def display_data():
     """
     Display data to the user 
     """
-    #display the data so that it can be acessed and deleted 
+    global new_month
+    
+    #display the data so that it can be acessed and deleted
+    all_values = tracker.get_all_values()
+    if not all_values:
+        print("Data is not availabe")
+        return
+    #design the table
+    print(f"{'Index':<5}{'Month':<10}{'Category':<20}{'Income':<10}{'Outgoings':<10}")
+    print("_" * 60)
+
+    for index,row in enumerate(all_values):
+        month= row[0]
+        category = row[1]
+        income = row[2] if row [2] else '0'
+        outgoings = row[3] if row [3] else '0'
+        print(f"{index:<5}{month:<10}{category:<20}{income:<10}{outgoings:<10}")
 
 def main():
     """
@@ -487,11 +504,10 @@ def main():
             print('Invalid Data. Please Enter Number From The List.\n')
 
 
-outgoings_categories(new_month)
 
+display_data()
 # calling the main function
-main()
-
+# main()
 
 
 
