@@ -553,7 +553,6 @@ def main():
     # loop throught the choices
     # Source : Python Exception Handling(CI)
     while True:
-        clearScreen()
         print('Please choose from the following options: \n')
         print('1. Display Budget Summary')
         print('2. Generate Budget')
