@@ -3,6 +3,8 @@
 import os
 import gspread
 from google.oauth2.service_account import Credentials
+
+# Constants for google sheets API
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -10,49 +12,39 @@ SCOPE = [
     ]
 
 
-# const for security file not to be tracked
+# Security file not to be tracked
 CREDS = Credentials.from_service_account_file('creds.json')
-# const for credentials scoped
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-# const to allow auth of gspread client within these scoped credentials
+# Authorize of gspread client within these scoped credentials
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-# const to open spread sheet
 SHEET = GSPREAD_CLIENT.open('budget_planner')
-
-# inspired by Amy Richardson
-# Tutorial:https://www.101computing.net/python-typing-text-effect/
-
-
-def clear_screen():
-    """
-    Clear screen function for CLI
-    """
-    os.system("clear")
 
 
 tracker = SHEET.worksheet('tracker')
 summary = SHEET.worksheet('summary')
 
-
-all_values = tracker.get_all_values()
-
-
-# since first row is a header, skip it
-existing_months = tracker.col_values(1)[1:]  # columns are 1 based not 0
-
-
 full_months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ]
-
-
 # this line was created with help of chat GPT
 # only first 3 letters needed, making it easy for the user
 month_abbr = {month[:3].capitalize(): month for month in full_months}
+
+
+# since first row is a header, skip it
+existing_months = tracker.col_values(1)[1:]  # columns are 1 based not 0
 # set new_month as global variable to acess throughout the code
-new_month = ""
 data = {}
+new_month = ""
+
+
+# Tutorial:https://www.101computing.net/python-typing-text-effect/
+def clear_screen():
+    """
+    Clear screen function for CLI
+    """
+    os.system("clear")
 
 
 def catch_month():
@@ -136,10 +128,9 @@ def income_categories(new_month):
         print('5. Main Menu \n')
         try:
             choice = int(input('Please Enter Your Choice Here: \n').strip())
-            if choice == 1:
-                category = "Salary"
-                print("What is Your INCOME from SALARY: ")
-                income = int(input().strip())
+            if choice in [1, 2]:
+                category = "Salary" if choice == 1 else "Sales"
+                income = int(input("What is Your INCOME from {category.upper()}: \n").strip())
                 tracker.append_row([new_month, category, income, ''])
                 data.setdefault(new_month, {
                         'Category': [], 'Income': [],
@@ -147,18 +138,6 @@ def income_categories(new_month):
                 data[new_month]['Category'].append(category)
                 data[new_month]['Income'].append(income)
                 continue
-
-            elif choice == 2:
-                category = "Sales"
-                print("What is Your INCOME from SALES : ")
-                income = int(input().strip())
-                tracker.append_row([new_month, category, income, ''])
-                data.setdefault(new_month, {
-                        'Category': [], 'Income': [], 'Outgoings': []})
-                data[new_month]['Category'].append(category)
-                data[new_month]['Income'].append(income)
-                continue
-
             elif choice == 3:
                 add_income(new_month)
                 break
@@ -168,8 +147,6 @@ def income_categories(new_month):
             elif choice == 5:
                 main()
                 break
-            elif choice == '':
-                continue
             else:
                 print('Number Out Of Range.\n')
                 print('Please Enter Number From The List Provided:\n')
