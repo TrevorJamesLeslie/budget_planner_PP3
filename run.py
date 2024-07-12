@@ -63,7 +63,7 @@ def catch_month():
 
     while True:
         clearScreen()
-        print('What Month You Are Interested In? Type first 3 letters only:\n')
+        print('TYPE FIRST 3 LETTERS OF THE MONTH YOU ARE INTERESTED IN? \n')
         print(('egzample: "mar" for "March" \n'))
         try:
             user_input = input().strip().capitalize()
@@ -71,7 +71,6 @@ def catch_month():
 
             if new_month in existing_months:
                 break
-
             elif new_month in full_months and new_month not in existing_months:
 
                 print(f'{new_month} Have No Current Record')
@@ -453,40 +452,6 @@ def budget_summary(new_month):
     return summary_data
 
 
-def month_summary():
-    """
-    Prompt user for the month they are interested in.
-    Validate wheter it exists
-    """
-
-    global new_month
-
-    print('Please Type First 3 letters Of The Month You Are Interested In :\n')
-    while True:
-        clearScreen()
-        try:
-            user_input = input().strip().capitalize()
-            new_month = month_abbr.get(user_input)
-
-            if new_month in existing_months:
-                budget_summary(new_month)
-            else:
-                if new_month in full_months - existing_months:
-                    print(f'{new_month} Have No Current Record')
-
-                print("1. To Generate New Month \n")
-                print("2. Go Back To Main Menu \n")
-                choice = input().strip()
-
-                if choice() == '1':
-                    generate_month()
-                elif choice() == '2':
-                    main()
-                    break
-        except ValueError:
-            print('Invalid Data. Please Try Again\n')
-
-
 def display_data():
     """
     Display data to the user
@@ -563,7 +528,8 @@ def main():
                     'Choice: 1, 2, 3, 4. Please Enter Number: \n').strip())
             print("\n")
             if choice == 1:
-                month_summary()
+                catch_month()
+                budget_summary(new_month)
                 break
             elif choice == 2:
                 generate_month()
