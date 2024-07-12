@@ -23,7 +23,7 @@ SHEET = GSPREAD_CLIENT.open('budget_planner')
 # Tutorial:https://www.101computing.net/python-typing-text-effect/
 
 
-def clearScreen():
+def clear_screen():
     """
     Clear screen function for CLI
     """
@@ -62,9 +62,9 @@ def catch_month():
     global new_month
 
     while True:
-        clearScreen()
+        clear_screen()
         print('TYPE FIRST 3 LETTERS OF THE MONTH YOU ARE INTERESTED IN? \n')
-        print(('egzample: "mar" for "March" \n'))
+        print(('sep" for "September" \n'))
         try:
             user_input = input().strip().capitalize()
             new_month = month_abbr.get(user_input)
@@ -126,7 +126,7 @@ def income_categories(new_month):
     User can chose from list of categories to add income
     """
     while True:
-        clearScreen()
+        clear_screen()
         print(f'What INCOME Are You Interested In for {new_month} ? ')
         print('Number value only: 1, 2, 3, 4, 5): \n')
         print('1. Salary')
@@ -183,7 +183,7 @@ def add_income(new_month):
     Append income data to the existing month
     """
     while True:
-        clearScreen()
+        clear_screen()
         try:
             print(f"{new_month} INCOME:")
             print("Type in name and amount(e.g.: salary, 2000): ")
@@ -200,7 +200,7 @@ def add_income(new_month):
             data[new_month]['Category'].append(category)
             data[new_month]['Income'].append(int(income))
 
-            clearScreen()
+            clear_screen()
             print(f"Added {income} to {category} for {new_month}.\n")
         except ValueError:
             print('Invalid input')
@@ -234,7 +234,7 @@ def outgoings_categories(new_month):
         ]
 
     while True:
-        clearScreen()
+        clear_screen()
         print(f'What OUTGOINGS Are You Interested In for {new_month} ? ')
         print('Number Value between 1 - 11 only): \n')
         for i, category in enumerate(outgoings_list, 1):
@@ -283,7 +283,7 @@ def add_outgoings(new_month):
     Append outgoings data to the existing month
     """
     while True:
-        clearScreen()
+        clear_screen()
         try:
             print(f"{new_month} OUTGOINGS:")
             print("Type in name and amount(e.g.: Shop, 2000): \n")
@@ -298,7 +298,7 @@ def add_outgoings(new_month):
             data[new_month]['Category'].append(category)
             data[new_month]['Outgoings'].append(int(outgoings))
 
-            clearScreen()
+            clear_screen()
             print(f"Added {outgoings} to {category} for {new_month}.\n")
         except ValueError:
             print('Invalid input format')
@@ -327,7 +327,7 @@ def chose_category(new_month):
     while True:
         try:
             if new_month in existing_months:
-                clearScreen()
+                clear_screen()
                 print(f'What Category You Are Interested In for {new_month} ?')
                 print('Number value only: 1, 2 or 3): \n')
                 print('1. Income')
@@ -365,13 +365,13 @@ def generate_month():
     global new_month
 
     while True:
-        clearScreen()
+        clear_screen()
         print(' TO CREATE NEW MONTH \n')
         print('Please type First 3 Letters Of The Month You Wish To Create:\n')
         try:
             user_input = input().strip().capitalize()
             new_month = month_abbr.get(user_input)
-            clearScreen()
+            clear_screen()
             if new_month:
                 if new_month in existing_months:
                     print(f'Uppsi...{new_month} ALREADY EXISTS.')
@@ -452,6 +452,7 @@ def budget_summary(new_month):
     return summary_data
 
 
+
 def display_data():
     """
     Display data to the user
@@ -510,7 +511,7 @@ def main():
     """
     Welcome Message to the user with options to chose from for the next step.
     """
-    clearScreen()
+    clear_screen()
     print('*** WELCOME TO BUDGET TRACKER ***\n')
     print('WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES ?\n')
     print("LET'S GET STARTED THEN!\n")
