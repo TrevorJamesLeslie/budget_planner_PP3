@@ -99,14 +99,17 @@ def budget_decision():
     """    
     while True:
         print('What would you like to do now? \n')
-        print('1. Go to Main Menu\n2. EXIT\n')
+        print('1. Go to Main Menu\n2. Show me more details\n3. EXIT\n')
         try:
             choice = int(input('Enter your choice here:\n').strip())
             print("\n")
             if choice == 1:
                 main()
                 break
-            elif choice == 2:
+            if choice == 2:
+                display_data()
+                break
+            elif choice == 3:
                 exit_program()
                 break
             else:
@@ -484,18 +487,22 @@ def delete_entry(new_month):
         except ValueError:
             print("invalid input. Please enter a number.")
 
-
-def main():
+def welcome_page():
     """
-    Welcome Message to the user with options to choose from for the next step.
+    Display welcome message to the user with options to choose from for the next step.
     """
-    clear_screen()
+    print("\n")
     print('$$$ WELCOME TO BUDGET TRACKER $$$\n')
     print('WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES?\n')
     print("LET'S GET STARTED THEN!\n")
     print('\n')
-    input("Press Enter to begin... ")  # Pause to let user read the welcome message
+    input("Press ENTER to begin... ")  
 
+
+def main():
+    """
+    Display main menu to the user with the core functions
+    """
     while True:
         clear_screen()
         print('Please choose from the following options: \n')
@@ -537,4 +544,5 @@ def main():
             input("Press Enter to continue...\n")
 
 # calling the main function
+welcome_page()
 main()

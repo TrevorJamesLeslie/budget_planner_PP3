@@ -39,12 +39,6 @@ This appliation is designed to track budget ....
 
 Entire program is displayed in CLI(Command Line Interface). Application allows to display window of 80 characters long and 24 rows down with a vertical scrollbar.
 
-### Wireframes
-
-- Welcome Page - [View](readme_documents/wire_frames/wire_frame_1.jpg)
-- Quiz Game - [View](readme_documents/wire_frames/wire_frame_2.jpg)
-- Results Page - [View](readme_documents/wire_frames/wire_frame_3.jpg)
-
 <br>
 
 # Project Creation Process
