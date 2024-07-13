@@ -46,7 +46,7 @@ def clear_screen():
     """
     os.system("clear")
 
-##############################################################################
+
 def catch_month():
     """
     Function to catch month that user wants to interact with
@@ -54,8 +54,9 @@ def catch_month():
     global new_month
     while True:
         clear_screen()
-        print('TYPE FIRST 3 LETTERS OF THE MONTH YOU ARE INTERESTED IN? \n')
-        print(('sep" for "September" \n'))
+        print('WHAT MONTH YOU ARE INTERESTED IN?\n')
+        print('TYPE FIRST 3 LETTERS ONLY')
+        print(('e.g.: "Jan" for January\n'))
         user_input = input().strip().capitalize()
         new_month = month_abbr.get(user_input)
 
@@ -80,26 +81,30 @@ def catch_month():
         else:
             print('Invalid data. Please try again')
 
+def exit_program():
+    """
+    function to exit the program
+    """
+    
+    print ("Exiting the program")
+    print ("See you next time!\n")
+    print("GOODBYE")
+
 
 def budget_decision():
-    global new_month
-
+    
     while True:
-        print('Question:  "What would you like to do now? \n')
-        print('1. Display budget summary \n')
-        print('2. Edit current budget \n')
-        print('3. EXIT \n')
+        clear_screen()
+        print('What would you like to do now? \n')
+        print('1. Go to Main Menu\n2. EXIT\n')
         try:
-            choice = int(input('Enter your choice (1, 2 or 3) here: \n').strip())
+            choice = int(input('Enter your choice here:\n').strip())
             print("\n")
             if choice == 1:
-                budget_summary(new_month)
+                main()
                 break
             elif choice == 2:
-                add_income(new_month)
-                break
-            elif choice == 3:
-                print("Exiing the program")
+                exit_program()
                 break
             else:
                 print('Number out of range. Please enter a valid number.\n')
@@ -130,8 +135,8 @@ def income_categories(new_month):
                         break  # break the loop once input is a number 
                     except ValueError:
                         print('\n')
-                        print(" Income value must be a digit.\n" )
-                        print(" Please try again.\n" )
+                        print("Income value must be a digit.\n" )
+                        print("Please try again.\n" )
                         input("Press ENTER to continue...")
                         clear_screen()
 
@@ -156,12 +161,13 @@ def income_categories(new_month):
             else:
                 print('Number Out Of Range.\n')
                 print('Please Enter Number From The List Provided:\n')
-                input("Press Enter to continue...")  # Pause to let user read the message
+                input('Press Enter to continue...')  # Pause to let user read the message
                 clear_screen()
         except ValueError:
             print('Invalid Data. Please Enter Number From The List.\n')
             input("Press Enter to continue...")  # Pause to let user read the message
             clear_screen()
+
 
 def add_income(new_month):
 
@@ -195,6 +201,7 @@ def add_income(new_month):
         print("Press ENTER To Continue, or Chose From Option Below: \n")
         print("1. Outgoings ")
         print("2. Budget Summary\n")
+        print("3. Exit")
 
         print('Enter Your Choice Here (1,2 or ENTER): ')
         choice = input().strip()
@@ -204,8 +211,11 @@ def add_income(new_month):
         elif choice == '2':
             budget_summary()
             break
-        elif choice == '':
-            continue
+        elif choice == '3':
+            exit_program()
+            break
+
+
 
 
 def outgoings_categories(new_month):
@@ -327,10 +337,10 @@ def generate_month():
                     print('1. EDIT This Month')
                     print('2. GO BACK To Main Menu')
                     print('3. ADD New Month \n')
-                    print('Please enter your choice here: ')
+                    print('Please enter your choice: ')
                     choice = (input().strip())
                     if choice == '1':
-                        chose_category(new_month)
+                        choose_category(new_month)
                         break
                     elif choice == '2':
                         main()
@@ -346,17 +356,17 @@ def generate_month():
                             "Category": [], "Income": [], "Outgoings": []}
                     print(f"{new_month} has been added sucessfully\n")
                     ("\n")
-                    chose_category(new_month)
+                    choose_category(new_month)
                     break
             else:
                 print(f"{user_input} Does not match the criteria.\n")
                 print("Please Try Again.\n")
                 print("\n")
         except ValueError:
-            print('Invalid Data.\n')
+            print('Invalid Data. Please Enter Number From The List.\n')
 
 
-def chose_category(new_month):
+def choose_category(new_month):
 
     """
     Let user chose whatever category (income or outcome).
@@ -387,6 +397,7 @@ def budget_summary(new_month):
     """
     Filter through the data and display only one with corresponding month.
     """
+    clear_screen()
     # Pull data from tracker worksheet
     all_values = tracker.get_all_values()
 
@@ -405,40 +416,28 @@ def budget_summary(new_month):
             total_income += income
             total_outgoings += outgoings
 
-    # Calculate balance
     balance = total_income - total_outgoings
-
     # Append totals to the 'summary' worksheet
     summary.append_row([new_month, total_income, total_outgoings, balance])
     summary_data = {
         "Month": [new_month], "Total income": [total_income],
         "Total outgoings": [total_outgoings], "balance": [balance]
     }
-
     if not month_rows:
         print(f"No data available for {new_month}.")
     else:
-        print(
-            f'Summary for {new_month}: Total Income: {total_income}, '
-            f'Total Outgoings: {total_outgoings}, Balance: {balance} \n'
-        )
+        print(f"Budget Summary for {new_month}")
+        print(f"Total Income: €{total_income:.2f}")
+        print(f"Total Outgoings: €{total_outgoings:.2f}")
+        print(f"Balance: €{balance:.2f}\n")
+        
 
-        # Display detailed data in a formatted table
-        print(f"{'Month': <10}{'Category': <20}{'Income': <10}{'Outgoings': <10}")
-        print("-" * 60)
-        for row in month_rows:
-            month, category, income, outgoings = row
-            income = income or '0'
-            outgoings = outgoings or '0'
-            print(f"{month: <10}{category: <20}{income: <10}{outgoings: <10}")
-
-    return summary_data
-
-
+################################################################################
 def display_data():
     """
     Display data to the user
     """
+    clear_screen()
     global new_month
     # display the data so that it can be acessed and deleted
     all_values = tracker.get_all_values()
@@ -463,6 +462,7 @@ def display_data():
         print(
             f'{index:<7}{month:<10}{category:<20}'
             f'{income:<10}{outgoings:<10}')
+
 
 def delete_entry(new_month):
     """
@@ -495,10 +495,12 @@ def main():
     """
     Welcome Message to the user with options to choose from for the next step.
     """
-    print('*** WELCOME TO BUDGET TRACKER ***\n')
+    clear_screen()
+    print('$$$ WELCOME TO BUDGET TRACKER $$$\n')
     print('WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES?\n')
     print("LET'S GET STARTED THEN!\n")
-    input("Press Enter to continue...")  # Pause to let user read the welcome message
+    print('\n')
+    input("Press Enter to begin...")  # Pause to let user read the welcome message
 
     while True:
         clear_screen()
@@ -520,12 +522,11 @@ def main():
                 break
             elif choice == 3:
                 catch_month()
-                chose_category(new_month)
+                choose_category(new_month)
                 break
             elif choice == 4:
                 clear_screen()
-                print("Exiting the program \n")
-                print("GOODBYE")
+                exit_program()
                 break
             else:
                 print('Number out of range.\n')
@@ -536,6 +537,4 @@ def main():
             input("Press Enter to continue...\n")
 
 # calling the main function
-#main()
-#income_categories(new_month)
-display_data()
+main()
