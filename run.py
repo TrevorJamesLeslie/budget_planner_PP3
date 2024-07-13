@@ -81,9 +81,10 @@ def catch_month():
         else:
             print('Invalid data. Please try again')
 
+
 def exit_program():
     """
-    function to exit the program
+    Function to exit the program
     """
     
     print ("Exiting the program")
@@ -92,7 +93,9 @@ def exit_program():
 
 
 def budget_decision():
-    
+    """
+    Prompt user for the next step when previous function was completed
+    """    
     while True:
         clear_screen()
         print('What would you like to do now? \n')
@@ -122,8 +125,8 @@ def income_categories(new_month):
         print('Number value only: 1, 2, 3, 4, 5): \n')
         print('1. Salary')
         print('2. Sales')
-        print('3. Add New Income\n')
-        print('4. Skip to Outgoings')
+        print('3. Create New Income\n')
+        print('4. Add Outgoings')
         print('5. Go Back To Main Menu \n')
         try:
             choice = int(input('Please Enter Your Choice: ').strip())
@@ -146,7 +149,7 @@ def income_categories(new_month):
                         'Outgoings': []})
                 data[new_month]['Category'].append(category)
                 data[new_month]['Income'].append(income)
-                print(f' {income} was added sucessfully to the {new_month} income. ')
+                print(f' {income} was added sucessfully to the {new_month} income.')
                 clear_screen()
                 continue
             elif choice == 3:
@@ -170,7 +173,6 @@ def income_categories(new_month):
 
 
 def add_income(new_month):
-
     """
     Append income data to the existing month
     """
@@ -178,8 +180,8 @@ def add_income(new_month):
         clear_screen()
         try:
             print(f"{new_month} INCOME:\n")
-            print("TYPE NAME AND THE AMOUNT ( *cash, 2000): ")
-            print('* NOTE: AMOUNT MUST BE A DIGIT\n')
+            print("TYPE NAME AND THE AMOUNT (e.g.: 'cash, 2000'): ")
+            print('*NOTE: AMOUNT MUST BE A DIGIT\n')
             category, income = input().split(',')
             tracker.append_row([
                     new_month, category.strip().capitalize(),
@@ -193,54 +195,51 @@ def add_income(new_month):
             data[new_month]['Income'].append(int(income))
 
             clear_screen()
-            print(f"Added {income} to {category} for {new_month}.\n")
+            print(f"Added {income} to {category.upper} for {new_month}.\n")
         except ValueError:
             print('Invalid input')
             print('Please use format: name, amount(number only).\n')
 
-        print("Press ENTER To Continue, or Chose From Option Below: \n")
+        print("Where would you like to go now?\n")
         print("1. Outgoings ")
-        print("2. Budget Summary\n")
-        print("3. Exit")
+        print("2. Budget Summary")
+        print("3. Main Menu\n")
 
-        print('Enter Your Choice Here (1,2 or ENTER): ')
-        choice = input().strip()
+        print(' Please choose from listed options :')
+        choice = input('Simply Press ENTER To Continue Adding:\n').strip()
         if choice == '1':
             outgoings_categories(new_month)
             break
         elif choice == '2':
-            budget_summary()
+            budget_summary(new_month)
             break
         elif choice == '3':
-            exit_program()
+            main()
             break
-
-
 
 
 def outgoings_categories(new_month):
-
     """
-   List of categories to chose from in outgoings
+    List of categories to chose from in outgoings
     """
     # create list of outgoings to chose from
     outgoings_list = [
         'House Bills', 'School', 'Creche', 'Shopping', 'Cars', 'Health',
         'Entertainment', 'Holidays', 'ADD NEW'
-        ]
+    ]
 
     while True:
         clear_screen()
-        print(f'What OUTGOINGS Are You Interested In for {new_month} ? ')
-        print('Number Value between 1 - 10 only): \n')
+        print(f'What OUTGOINGS Are You Interested In for {new_month}? ')
+        print('Number Value between 1 - 9 only : \n')
         for i, category in enumerate(outgoings_list, 1):
             print(f'{i}. {category}')
 
-        print('11. Main Menu \n')
+        print('10. Main Menu \n')
 
         try:
-            choice = int(input('Please Enter Your Choice Here: \n').strip())
-            if choice >= 1 and choice <= 9:
+            choice = int(input('Please Enter Your Choice: ').strip())
+            if choice >= 1 and choice <=8:
                 category = outgoings_list[choice - 1]
                 print(f"What is Your OUTGOINGS Amount for {category.upper()}")
                 outgoings = int(input().strip())
@@ -250,18 +249,10 @@ def outgoings_categories(new_month):
                 data[new_month]['Category'].append(category)
                 data[new_month]['Outgoings'].append(outgoings)
                 continue
-
-            elif choice == 2:
-                category = "Sales"
-                print("What is Your INCOME from SALES : ")
-                income = int(input().strip())
-                tracker.append_row([new_month, category, income, ''])
-                data.setdefault(new_month, {
-                        'Category': [], 'Income': [], 'Outgoings': []})
-                data[new_month]['Category'].append(category)
-                data[new_month]['Income'].append(income)
-                continue
-            elif choice == 11:
+            elif choice == 9:
+                add_outgoings(new_month)
+                break
+            elif choice == 10:
                 main()
                 break
             elif choice == '':
@@ -274,16 +265,15 @@ def outgoings_categories(new_month):
 
 
 def add_outgoings(new_month):
-
     """
     Append outgoings data to the existing month
     """
     while True:
         clear_screen()
         try:
-            print(f"{new_month} OUTGOINGS:")
-            print("Type in name and amount(e.g.: Shop, 2000): \n")
-            print('*Please ensure that amount has a number value\n')
+            print(f"{new_month} OUTGOINGS:\n")
+            print("TYPE NAME AND THE AMOUNT (e.g.: 'clothes, 200'): ")
+            print('*NOTE: AMOUNT MUST BE A DIGIT\n')
             category, outgoings = input().split(',')
             tracker.append_row([
                     new_month, category.strip().capitalize(),
@@ -295,7 +285,7 @@ def add_outgoings(new_month):
             data[new_month]['Outgoings'].append(int(outgoings))
 
             clear_screen()
-            print(f"Added {outgoings} to {category} for {new_month}.\n")
+            print(f"Added {outgoings} to {category.upper} for {new_month}.\n")
         except ValueError:
             print('Invalid input format')
             print('Please use format: name, amount(number only). \n')
@@ -303,10 +293,11 @@ def add_outgoings(new_month):
         print("Press ENTER To Continue, or Chose From Options Below: \n")
         print("1. Go To Budget Summary")
         print("2. Go Back to Main Menu\n")
-        print('Enter Your Choice Here (1,2 or ENTER): ')
+        
+        choice = input('Enter your choice here:\n').strip()
         choice = input().strip()
         if choice == '1':
-            budget_summary()
+            budget_summary(new_month)
             break
         elif choice == '2':
             main()
@@ -332,7 +323,7 @@ def generate_month():
             clear_screen()
             if new_month:
                 if new_month in existing_months:
-                    print(f'Uppsi...{new_month} already EXISTS.')
+                    print(f'Oopsi...{new_month} already EXISTS.')
                     print('What would you like to do? \n')
                     print('1. EDIT This Month')
                     print('2. GO BACK To Main Menu')
@@ -367,7 +358,6 @@ def generate_month():
 
 
 def choose_category(new_month):
-
     """
     Let user chose whatever category (income or outcome).
     """
@@ -384,7 +374,7 @@ def choose_category(new_month):
                 outgoings_categories(new_month)
                 break
             elif choice == 3:
-                print("Exitng the program")
+                exit_program()
                 break
             else:
                 print(f"{choice} Does not match the criteria.\n")
@@ -432,10 +422,9 @@ def budget_summary(new_month):
         print(f"Balance: €{balance:.2f}\n")
         
 
-################################################################################
 def display_data():
     """
-    Display data to the user
+    Display budget detailed data to the user
     """
     clear_screen()
     global new_month
@@ -444,7 +433,7 @@ def display_data():
     if not all_values:
         print("Data is not availabe")
         return
-    #skip the header row (first row)
+    # skip the header row (first row)
     data_rows = all_values[1:]
 
     # design the table
