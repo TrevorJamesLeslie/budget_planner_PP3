@@ -1,43 +1,59 @@
 # Budget Planner $$$
 
-![Am I responsive](readme_documents/responsively-screenshots/Am_I_responsive_main.png)
+![Welcome Screen](readme_documents/screenshots/welcome_screen.png)
 
 Visit the deployed site here: [Budget Planner](https://budget-planner-ef48562f3908.herokuapp.com/)
 
-This appliation is designed to track budget .... 
+This application is designed to track and manage my budget efficiently. It allows me to input income and expenses, categorize them, and generate monthly summaries using Google Sheets for data storage. I created this tool to have a better grasp of my personal finances and make informed financial decisions.
 
 ## User Experience/User Interface (UX/UI) 
 
 ### User Stories
 
-**As a user, I:**
+**As the primary user, I:**
 
-- Want the quiz to be responsive to my devices.
-- Want clear instructions on how to navigate through the quiz.
-- Want to know how many questions there are.
-- Want to know if I selected the correct answer.
-- Want to get help if I am stuck on a question.
-- Want to be able to reset the quiz if I made a mistake.
-- Want to know what question number I am on during the quiz.
-- Want to know my score during the quiz.
-- Want to know what the correct answer is if I selected the wrong answer.
-- Want to know my final score.
+- Need clear instructions on how to navigate through the application.
+  - The application displays clear prompts for each step, guiding me through entering income, expenses, and generating summaries.
+  - Error messages are provided for invalid inputs, ensuring I understand how to correct mistakes.
+  
+- Want to easily input and track my monthly income and expenses.
+  - I can select or add income categories such as Salary and Sales, and input the respective amounts.
+  - I can select or add expense categories such as House Bills, Shopping, and Entertainment, and input the respective amounts.
+
+- Want to generate and view monthly budget summaries.
+  - The `budget_summary` function generates a clear summary showing total income, total expenses, and the balance for a selected month.
+
+- Want to know if there are any new updates or features.
+  - Future updates and features will be documented and accessible via the application's main menu or a dedicated section.
 
 ### First Time Visitor Goals
 
-1. Understand the main purpose of the site and learn about the Friends trivia quiz.
-2. Navigate the site easily to start the quiz or learn more about it.
-3. Experience a flashback into the show's great moments.
+1. Understand the main purpose of the site and learn about the Budget Planner.
+   - The welcome message and introductory text clearly explain the application's purpose and how it can help manage personal finances.
+
+2. Navigate the site easily to start using the application.
+   - The main menu provides options to display the budget summary, generate a new budget, edit an existing budget, delete an entry, or exit the application.
+
+3. Experience a user-friendly interface for entering and managing budget data.
+   - Clear and concise prompts guide the user through each process, making it easy to add income, record expenses, and view summaries.
 
 ### Returning Visitor Goals
 
-1. Access new or updated quiz questions.
-2. Switch off from everyday life and have fun.
-3. Check for any new features or updates related to the quiz.
+1. Access new or updated budget data.
+   - The `catch_month` function allows me to select a month and view or update the budget data for that period.
+
+2. Easily input new income or expenses.
+   - The `income_categories` and `outgoings_categories` functions allow me to add new income or expenses quickly.
+
+3. Easily delete previous entries if needed.
+   - The `delete_entry` function lets me remove specific entries from the budget tracker.
+
+4. Check the summary for previous budgets.
+   - The `budget_summary` function generates summaries for previous months, allowing me to review my financial history.
 
 ## Design   
 
-Entire program is displayed in CLI(Command Line Interface). Application allows to display window of 80 characters long and 24 rows down with a vertical scrollbar.
+The entire program is displayed in a Command Line Interface (CLI). The application is designed to be user-friendly with clear prompts and validations to guide users through various tasks such as adding income, recording expenses, and generating summaries.
 
 <br>
 
@@ -45,175 +61,151 @@ Entire program is displayed in CLI(Command Line Interface). Application allows t
 
 ## Planning 
 
-- **Flowchart :** bla bla
+- **Flowchart :** A detailed flowchart was created to outline the user journey and application logic.
+![Flowchart](readme_documents/screenshots/flowchart.png)
+
 
 - **Google API SetUp :**   
-Prior to starting any program function code, the relevant Credentials and API set up needed to take place. This process is detailed in the [Creation & Deployment](#creation--deployment) section. Security was an important factor with the connecting of a Google Account (one that I created solely for the project) to access the Google Sheets worksheet. Steps were followed carefully to ensure that no important files like, `CREDS.json`, were pushed to the cloud for the public to view. Guidance for the setting up of these authorisations and credentials, was provided through the Code Institute's Full Stack Software Development course.
+Prior to starting any program function code, the relevant Credentials and API setup took place. Security was a crucial factor in connecting to a Google Account to access the Google Sheets worksheet. Guidance for setting up these authorizations and credentials was provided through the Code Institute's Full Stack Software Development course.
+![Google API Setup](readme_documents/screenshots/google_api_setup.png)
 
 - **Google Sheets :**
-was used to store any entered user data and called upon when data was manipulated and updated. It was used to simulate a database, as the user will have no direct interaction with the actual worksheets. All data entry and manipulation takes place within the terminal. 
-
-Clear instructions are printed in the terminal instructing the user in how to enter the data, so that it may be displayed correctly on its output, within the scope of this project. For future development,  
+Used to store my data, simulating a database. All data entry and manipulation occur within the terminal, and the user interacts with a clear and straightforward CLI.
+![Google Sheets](readme_documents/screenshots/google_sheets.png)
 
 ## Python Logic  
-With this being my first Python project, my main goal was to create an application that accessed, displayed and edited data successfully from Google Sheets worksheets; to simulate a database. I will admit that my Scope for this project was regularly adjusted when my simultaneous learning of the gspread library reached it's limits in what I could create. Reminding myself to consider the MVP kept me on track.
+The project utilizes Python to create an application that accesses, displays, and edits data from Google Sheets. The core functionality includes menus created using if/elif statements and user input validation using while loops and try/except statements.
 
-I began by creating simple functions which pushed the flow of user input through the application. Menus were created using if/elif statements and user input was validated using while loops and try/except statements. 
+### Key Functions 
 
-From these initial menus, smaller functions were added that controlled the movement and manipulation of data. Functions containing enumerate() were essential in pulling the data from specific matched locations in the worksheets, once the user's input was validated to be present within the worksheets. I constantly tested the validation functions throughout the project build so that I would not be left with gaps in the flow of the application. 
+### Key Functions
+- **main:** The main function that displays the main menu and handles user input to navigate through the core functionalities.
+- **catch_month:** Prompts the user to select a month to interact with, ensuring valid input.
+- **income_categories:** Allows the user to add income from predefined categories or create new ones.
+- **outgoings_categories:** Allows the user to add expenses from predefined categories or create new ones.
+- **budget_summary:** Generates and displays a summary of the selected month's budget.
+- **delete_entry:** Allows the user to delete specific budget entries.
+- **choose_category:** Lets the user choose whether to enter income or expenses for a selected month.
+- **generate_month:** Checks if a month exists in the tracker and generates a new month if it doesn't.
+- **add_income:** Appends income data to the existing month.
+- **add_outgoings:** Appends outgoing data to the existing month.
 
-Once I confirmed one section's function to be successful, I investigated whether the code could be reused in other sections with similar purposes. In some instances it could, once the data handling remained the same. In other situations, code was personalised for the individual function, particularly in how the data was displayed. Parallel iteration using the python zip() function was needed in displaying Batch and Inventory data, whilst Sales Data was displayed using the Python '\t' whitespace character. This gave space between each item in the Sales Data sheet, when represented in the terminal.   
-    *Welcome Page Message*
-    - ![View](readme_documents/visual_page_1.jpeg)
-
+### Helper Functions
+- **clear_screen:** Clears the terminal for a cleaner display of the next menu or prompt.
+- **exit_program:** Exits the program with a clear message.
+- **budget_decision:** Prompts the user for the next step after a function is completed.
+- **display_data:** Displays detailed budget data to the user.
+- **welcome_page:** Displays a welcome message to the user.
 <br>
 
 # Features
 
 ## How to Use Budget Planner
 
-### Main Menu  
-After the opening screen of BakeStock ASCII art, the user is greeted by the below menu. Users may enter the number displayed beside the menu options. Any input not connected to the menu choices will be confirmed as invalid and the user is prompted to enter a numbered menu option.
-![Main Menu screenshot](documentation/readme/main_menu_f.png)  
-  
-    
-### Sales Menu    
-Similar to the opening menu, the user is prompted to enter their menu option choice. The user is informed of any invalid input and prompted to try again.
-![Sales menu screenshot](documentation/readme/sales_menu_f.png)
-  
-  
-### Sales Figures   
-Sales figures are printed to the terminal and are as current as the data that is stored in the Google Sheet. The data will refresh during the user session if they choose to add any sales figures at the end of the day. If the Sales Worksheet is refreshed, then a Yellow text warning is displayed to the user informing them of 'No data' available, incase the user is thinks that the program has stalled in its data display. The user can return to the Sales Menu by following the instructions to enter 's'.
-![Sales figures screenshot](documentation/readme/sales_figs_f.png)  
-  
-    
-### Records Sales Figures  
-The user is prompted to enter the Sales figures by first entering the date and the abbreviated baked items. This is done so that the Sales table will display correctly in the terminal and allows different baked items to be recorded daily. Further learning of data formatting, for future versions, will allow me to remove the abbreviated restriction for the user so that the data displays with full words. Data entry is restricted to 9 columns within the worksheet to assist in the Sales display. The user is informed of this if they exceed the value restriction.
-<details open>
-<summary>Records Sales Figures Feature</summary>
-<img src = "documentation/readme/record_sales_f.png">
-</details>  
-  
-### Clear Sales Data  
-The user is prompted to enter the words 'CLEAR DATA' exactly as displayed if they wish to clear the Sales worksheet. Again, user input validation has been very important here to ensure no actions are executed if the user did not intend for them. Several steps of input are required to ensure no mistakes are made.
-<details>
-<summary>Clear Sales Figures Feature</summary>
-<img src = "documentation/readme/clear_f.png">
-</details>  
+### Step-by-Step Guide
 
-### Batch Numbers  
-Batch numbers are displayed beneath the Batch menu banner. A yellow text warning alerts the user that the batch quantity consists of 12 items. 
-<details>
-<summary>View Batch Numbers Feature</summary>
-<img src = "documentation/readme/batch_nums_f.png">
-</details>   
+1. **Starting the Application**
+   - When you run the application, you will be greeted with a welcome message.
+   ![Welcome Message](readme_documents/screenshots/welcome_message.png)
+   - Press "ENTER" to begin.
 
-### View Batch Menu  
-Users are greeted with the Batch Menu providing several options.
-<details>
-<summary>Batch Menu Feature</summary>
-<img src = "documentation/readme/batch_menu_f.png">
-</details>   
- 
-### Add Item, Change Item, Update Item, Clear Item in Batches  
- Multiple options are provided to allow for customisation by the user. The Flavours/Items section is editable by the user to allow for different baked items everyday. Similar to making a to-do list in a notebook, the baker/user can update the required batch numbers at the end of the day, ready for the next baking day. When they complete a batch, these numbers can be edited back to zero to reflect this. This gives the baker real-time information on what is left to do every time they view the batch numbers.
-<details>
-<summary>Add, Change, Update, Clear Batch Item</summary>
-<img src = "documentation/readme/enter_newb_f.png">
-<img src = "documentation/readme/change_batch.png">
-</details>
+2. **Main Menu**
+   - You will be presented with the following options:
+     - 1. Display Budget Summary
+     - 2. Generate Budget
+     - 3. Edit Budget
+     - 4. Delete Entry
+     - 5. EXIT
+   ![Main Menu](readme_documents/screenshots/main_menu.png)
+   - Enter the number corresponding to the action you want to take.
 
-### Ingredient Inventory  
-Following a similar UI from the earlier Menu options, the Inventory displays the current stock levels. 
-<details>
-<summary>Ingredient Inventory Feature</summary>
-<img src = "documentation/readme/ing_view_f.png">
-</details>   
+3. **Generating a New Budget**
+   - If you choose to generate a new budget (option 2), you will be prompted to enter the first three letters of the month you are interested in (e.g., "Jan" for January).
+   ![Generate Budget](readme_documents/screenshots/generate_budget.png)
+   - If the month does not exist in the tracker, you will have the option to create it.
 
-### Inventory Menu  
-Users are greeted by an Inventory Menu providing several options.
-<details>
-<summary>Inventory Menu Feature</summary>
-<img src = "documentation/readme/ing_menu.png">
-</details> 
-  
-### Add Item, Change Item, Update Item, Clear Item in Inventory  
-These items are customisable with an 'Ingredient' section for displaying the ingredient name and unit in brackets. The 'Quantity' value is numerical only and may be updated when bakes have been processed. Similar to the Batch menu, the UX prompts, validates and acts on user input.
-<details>
-<summary>Add, Change, Update, Clear Inventory Item</summary>
-<img src = "documentation/readme/add_ing.png">
-<img src = "documentation/readme/change_ing.png">
-</details>  
+4. **Entering Income**
+   - After selecting or creating a month, you can choose to add income.
+   - Select the income category (e.g., Salary, Sales) or create a new category.
+   ![Add Income](readme_documents/screenshots/add_income.png)
+   - Enter the income amount when prompted.
 
-### Exit  
-Some users may like to have an option to feel that they have exited the program. Although it's function is very minor, I felt that it was important to include and to thank the user for using BakeStock.
-<details>
-<summary>Program Exit</summary>
-<img src = "documentation/readme/exit_f.png">
-</details>   
- 
+5. **Entering Expenses**
+   - You can also choose to add expenses for the selected month.
+   - Select the expense category (e.g., House Bills, Shopping) or create a new category.
+   ![Add Expenses](readme_documents/screenshots/add_expenses.png)
+   - Enter the expense amount when prompted.
 
+6. **Viewing the Budget Summary**
+   - To view the budget summary, select option 1 from the main menu.
+   - Choose the month you want to view.
+   ![Budget Summary](readme_documents/screenshots/budget_summary.png)
+   - The summary will display the total income, total expenses, and balance for the selected month.
+
+7. **Editing a Budget**
+   - To edit an existing budget, select option 3 from the main menu.
+   - Choose the month you want to edit.
+   ![Edit Budget](readme_documents/screenshots/edit_budget.png)
+   - You can then add or modify income and expenses for that month.
+
+8. **Deleting an Entry**
+   - To delete an entry, select option 4 from the main menu.
+   - Choose the month and the specific entry you want to delete.
+   ![Delete Entry](readme_documents/screenshots/delete_entry.png)
+   - Confirm the deletion.
+
+9. **Exiting the Program**
+   - To exit the program, select option 5 from the main menu.
+   - A goodbye message will be displayed, and the program will close.
+   ![Exit Program](readme_documents/screenshots/exit_program.png)
 -----  
 
 <br>
 
 ## Future Enhancements
 
-- **Year :** Adding a year
-- **Multiple Users :** 
-- **Aesthetics:** A visually appealing 
-- **Aesthetics and functionality :** Connecting with other librarie for faster response and nicer look.
+- **Year Tracking:** Add functionality to track budget data by year.
+- **Multiple Users:** Allow multiple users to manage their budgets separately.
+- **Improved Aesthetics:** Enhance the CLI interface for a more visually appealing experience.
+- **Additional Libraries:** Integrate with other libraries for faster response times and improved functionality.
 
 -----  
 
 <br>
 
 # Languages and Technologies Used 
-   - Python  
-   - HTML5, JavaScript - provided within the Code Institute's [Python Essentials template](https://github.com/Code-Institute-Org/python-essentials-template) 
-   - [Lucidchart](https://www.lucidchart.com/pages/) - used to create the flowchart needed during project planning.
+   - **Python:** Core programming language used to develop the application.
+   - [Google Sheets](https://docs.google.com/spreadsheets/) Used for data storage and manipulation.
+   - [Google Cloud Platform](https://cloud.google.com/): Provides the APIs for connecting to Google Sheets. 
    - [GitHub](https://github.com/) - used for hosting the program's source code.
    - [Gitpod](https://www.gitpod.io/) - used as a workspace for developing the code and testing the program.
-   - Git - used for version control.
-   - [Google Sheets](https://docs.google.com/spreadsheets/) - used for storing edited and saved user data.
-   - [Google Cloud Platform](https://cloud.google.com/) - used to provide the APIs for connecting the data sheets with the Python code.
+   - **Git:** Used for version control.
    - [Heroku](https://heroku.com/apps) - used for deploying the project.
    - [PEP8 Validator](https://pep8ci.herokuapp.com/#) - used for validating the Python code.
-   - [Tiny PNG](https://tinypng.com/) - used to compress images.
+   - [Lucidchart](https://www.lucidchart.com/pages/) - used to create the flowchart needed during project planning.
+   - [Tiny PNG](https://tinypng.com/) - used to compress images for readme.
 -----  
 
 <br>
 
 # Libraries & Packages 
-   - **gspread** - gspread was imported and used to add, remove and manipulate data in the connected Google Sheets worksheets.  
-
-   - **google.oauth.service_account** - This library was used for the authentication needed to access the Google APIs for connecting the Service Account with the Credentials function. A `CREDS.json` file was generated from this with the details needed for the API to access my Google account which holds the Google Sheets worksheet containing the applications data. When deploying to Heroku, this information is then stored in the config var section to ensure the application will run.  
-
-   - **time & sys** -the time & sys libraries were used for the text-typing effect for typePrint and typeInput statements to create a visual effect 0f the text appearing on screen in real time.  
-
-   - **os** - os library was used to add the clearScreen() function to assist in creating a neater flow from Menu options by clearing the screen for the user's choice from the Menu to be displayed. 
-
+- **gspread:** Used to add, remove and manipulate data in the connected Google Sheets worksheets.
+- **google.oauth.service_account:** Used for the authentication needed to access the Google APIs for connecting the Service Account with the Credentials function.
+- **os:** Used to add the clear_screen function to assist in creating a neater flow from Menu options by clearing the screen for the user's choice from the Menu to be displayed. 
 
 -----  
 <br>
 
 # Testing  
-I have created an additional file for my Manual Testing and Validation this can be found here: [TESTING.md](/TESTING.md)
+Extensive testing was conducted to ensure the application's functionality. This includes manual testing of all features, validating user inputs, and ensuring seamless interaction with Google Sheets 
 
 ### Code Validation
-
+- The code was validated using PEP8 standards to ensure readability and maintainability.
+![PEP8 Validation](readme_documents/screenshots/pep8_validation.png)
 
 ### Known Bugs / fixed bugs 
 - #### No known bugs recorded at the end of the project.
-  Many of the issues I had found were simple semicolons or naming mistakes and some were as complicated as function being connected incorreclty. Once one bug was fixed another appeared which made the learning really deep.
-  Many bugs during the process of making it abd to list them all would be a challenge. The main issue I had was with answerr button colors and hint and had used tutor support on this ocassions. 
-  The score wont load properly - function issue, naming was incorrect.
-  Colors on the correct / incorrect buttons wont apply properly - I was targeting answer buttons not buttons individually.
-  Buttons wont apply correct colors - Changed accepthing answers tio true, used const not let  
-  Colors apply but on background not buttons - solved with tutor help, parent element was the issue, 
-  Color worked but not always - it was spotted by tutor , mouse was still hovering over it - disabled mouse afetr the answer was made. 
-  Hint messsage was not clearing - hint name was chaged to a fixed name , but after the call with mentor I got a great advice to change the whole naming and and separate icon with a span. 
-
+No known bugs recorded at the end of the project. Continuous testing ensured that all issues were resolved promptly.
 
 
 # Setting up & Deployment    
@@ -234,23 +226,12 @@ The [Code Institute's Python Essential Template](https://github.com/Code-Institu
 </details> 
   
 -----  
-### GitHub Pages
 
-The project was deployed to GitHub Pages using the following steps:
-
-1. Log in to GitHub and locate the [Friends_Trivia Repository](https://github.com/monika-mak/Project_Portfolio_2-Friends_Trivia).
-2. At the top of the Repository (not top of page), locate the "Settings" button on the menu.
-3. Scroll down the Settings page until you locate the "GitHub Pages" section.
-4. Under "Source," click the dropdown called Source is set to 'Deploy from Branch' and select "main."
-5. Make sure the folder is set to / (root).
-6. Under Branch, click Save. The page will automatically refresh.
-7. Scroll back down through the page to locate the now published site [Friends Trivia Quiz](https://monika-mak.github.io/Project_Portfolio_2-Friends_Trivia/) in the "GitHub Pages" section.
 
 ### Forking the GitHub Repository
 
 By forking the GitHub Repository, we make a copy of the original repository on our GitHub account to view and/or make changes without affecting the original repository by using the following steps:
-
-1. Log in to GitHub and locate the [Friends_Trivia Repository](https://github.com/monika-mak/Project_Portfolio_2-Friends_Trivia)
+1. Log in to GitHub and locate the [Budget Planner](https://github.com/monika-mak/budget_planner_PP3)
 2. At the top of the Repository (not top of page) just above the "Settings" button on the menu, locate the "Fork" button.
 3. You should now have a copy of the original repository in your GitHub account.
 
@@ -303,19 +284,17 @@ To access the data in a Google Sheets worksheet using Python code, an API is req
 
 ### Deploying to Heroku  
 
-Heroku has been used to deploy this project as Python is used as a back-end language. To allow for accurate testing, I deployed the project to Heroku early on using Automatic Deployment to update the program everytime new code was pushed to my GitHub repository. Here are the steps that I followed to set my project up, guidance was provided by the [Code Institute's](https://codeinstitute.net/ie/) 'Love Sandwiches' project.     
+Heroku has been used to deploy this project as Python is used as a back-end language. To allow for accurate testing, I deployed the project to Heroku early on using Automatic Deployment to update the program every time new code was pushed to my GitHub repository. Here are the steps that I followed to set my project up, guidance was provided by the [Code Institute's](https://codeinstitute.net/ie/) 'Love Sandwiches' project.     
 
 1. Log in to [Heroku](https://id.heroku.com/login) or create an account if you are a new user.
 2. Once logged in, in the Heroku Dashboard, navigate to the '**New**' button in the top, right corner, and select '**Create New App**'.
 <details>
 <summary>Create new app</summary>
-<img src ="documentation/readme/heroku_1.png">
 </details>  
 
 3. Enter an app name and choose your region. Click '**Create App**'.
 <details>
 <summary>Enter app name</summary>
-<img src ="documentation/readme/heroku_2.png">
 </details>  
   
 4. In the Deploy tab, click on the '**Settings**', reach the '**Config Vars**' section and click on '**Reveal Config Vars**'. Here you will enter KEY:VALUE pairs for the app to run successfully. In KEY enter `CREDS`, in VALUE, paste in the text content of your `CREDS.json` file. Select '**Add**'.  
@@ -324,46 +303,45 @@ Heroku has been used to deploy this project as Python is used as a back-end lang
   
 <details>
 <summary>Choose Buildpacks</summary>
-<img src ="documentation/readme/heroku_bp.png">
 </details>  
   
 7. Go to the '**Deploy**' tab and choose GitHub as the Deployment method.
 8. Search for the repository name, select the branch that you would like to build from, and connect it via the '**Connect**' button.
 9. Choose from '**Automatic**' or '**Manual**' deployment options, I chose the 'Automatic' deployment method. Click '**Deploy Branch**'.
-10. Once the waiting period for the app to build has finished, click the '**View**' link to bring you to your newly deployed site.
-
-  
------  
-
+10. Once the waiting period for the app to build has finished, click the '**View**' link to bring you to your newly deployed site. 
 
 ## Credits
 
-### Idea
-
-The idea for this project came from actual need of knowing our houshold budget. It was atask that I had put off for way too many years (to be honnest). 
-Fun Fact: Even knowing this could be a great use of the project, part of me was resistant... I knew what was coming $$$. I am happy that I  have took on this challenge though.  
-
 ### Content
 
-Content was inspired mainly by the tutorials below:
 - **Code Institute** Love Sandwiches Project Walkthrough 
 - [BakeStock](https://budget-planner-ef48562f3908.herokuapp.com/)
-- [bla bla ](https://www.youtube.com/watch?v=rFWbAj40JrQ&list=PLB6wlEeCDJ5Yyh6P2N6Q_9JijB6v4UejF)
 - [Amy Richardson's README](https://github.com/amylour/BakeStock/blob/main/README.md) Thank you Amy!
 
 ### Learning and Support Resources
 
 - [Code Institute](https://codeinstitute.net/) - Main source of information, structure and support learnings.
-- [W3Schools](https://www.w3schools.com/) - 
+- [W3Schools](https://www.w3schools.com/) - For additional coding references.
 - [YouTube](https://www.youtube.com/) - To source a deeper understanding.
-- [ChatGPT](https://openai.com/chatgpt) - quick inforamtion when needed,loved using it to understand concepts, found very useful when prompting("explain as if to a 10 year old").quick information support when needed.
-
+- [ChatGPT](https://openai.com/chatgpt) -  Quick information when needed, found very useful when prompting ("explain as if to a 10 year old"), used also for help in readme.
 - [SoloLrarn](https://www.sololearn.com/en/) - Python constant practise.
 - [Study Music, Concentration, Focus](https://www.youtube.com/results?search_query=study+music+concentration+focus) - To keep me calm during work.
+
+# Conclusion
+
+The Budget Planner project provides a robust and user-friendly solution for managing personal finances. With its integration with Google Sheets, I can easily track my income and expenses, generate summaries, and make informed financial decisions. The CLI interface ensures accessibility and ease of use, making budget management straightforward and efficient. This tool has greatly helped me in understanding my finances better and planning my budget effectively.
 
 ### Acknowledgements
 
 A massive shout-out to:
 
-- Amy Richardson again, thank you for your constant support as well as great advices and tips given throughout the process.
-- Femi - my mentor who utilized our meetings very well, giving constructive feedback and excellent practice, your feedback is always very powerful and to the point.
+- Amy Richardson for her constant support and great advice throughout the process.
+- Femi(Medale Oluwafemi) - my mentor for constructive feedback and excellent practice tips. Your feedback is always powerful and to the point. Thank you. 
+
+## Contact Information
+
+If you have any questions, suggestions, or feedback, feel free to reach out to me at:
+
+- Email: [monika1986mak@gmail.com](mailto:monika1986mak@gmail.com)
+- LinkedIn: [Monika Mak](linkedin.com/in/monika-mak)
+- GitHub: [Monika-Mak](https://github.com/monika-mak)
