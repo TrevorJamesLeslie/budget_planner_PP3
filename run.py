@@ -546,7 +546,6 @@ def main():
             input("Press Enter to continue...\n")
 
 
-income_categories(new_month)
 # calling the main function
 welcome_page()
 main()
