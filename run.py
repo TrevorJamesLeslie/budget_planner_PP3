@@ -90,7 +90,7 @@ def exit_program():
     print ("Exiting the program")
     print ("See you next time!\n")
     print("GOODBYE")
-    exit(0)  # making sure program closes
+    exit()  # making sure program closes
 
 
 def budget_decision():
@@ -331,9 +331,9 @@ def generate_month():
                 if new_month in existing_months:
                     print(f'Oopsi...{new_month} already EXISTS.')
                     print('What would you like to do? \n')
-                    print('1. EDIT This Month')
+                    print('1. Add Income or Outgoings to this Month')
                     print('2. GO BACK To Main Menu')
-                    print('3. ADD New Month \n')
+                    print('3. Generate New Month \n')
                     print('Please enter your choice: ')
                     choice = (input().strip())
                     if choice == '1':
@@ -474,10 +474,10 @@ def delete_entry(new_month):
             display_data()
             print("\n")
             index_to_delete = int(input(
-                    "What index line you wish to delete?\n***Press 'X' Exit ").strip())
+                    "What line number you wish to delete?\n***Press 'X' Exit ").strip())
             if index_to_delete > 0 and index_to_delete < len(all_values):
                 tracker.delete_rows(index_to_delete + 1)  # +1indices start at1
-                print(f'Entry at index {
+                print(f'Entry at line {
                         index_to_delete} has been deleted sucesfully')
                 continue
             else:
@@ -508,9 +508,9 @@ def main():
     while True:
         clear_screen()
         print('Please choose from the following options: \n')
-        print('1. Display Budget Summary')
-        print('2. Generate Budget')
-        print('3. Edit Budget')
+        print('1. Display budget summary')
+        print('2. Generate budget')
+        print("3. Add data to the existing month ")
         print('4. Delete entry')
         print('5. EXIT\n')
         try:

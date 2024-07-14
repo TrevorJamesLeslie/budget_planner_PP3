@@ -78,7 +78,6 @@ The project utilizes Python to create an application that accesses, displays, an
 
 ### Key Functions 
 
-### Key Functions
 - **main:** The main function that displays the main menu and handles user input to navigate through the core functionalities.
 - **catch_month:** Prompts the user to select a month to interact with, ensuring valid input.
 - **income_categories:** Allows the user to add income from predefined categories or create new ones.
