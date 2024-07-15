@@ -150,8 +150,9 @@ def income_categories(new_month):
                 while True:
                     clear_screen()
                     try:
-                        income = int(input(f"ENTER YOUR {
-                                category.upper()} INCOME: ").strip())
+                        income = int(input(
+                            f"ENTER YOUR {category.upper()} "
+                            f"INCOME: \n").strip())
                         break  # break the loop once input is a number
                     except ValueError:
                         clear_screen()
@@ -570,11 +571,11 @@ def welcome_page():
     Display welcome message to the user with options to choose the next step.
     """
     print("\n")
-    print('$$$ WELCOME TO BUDGET TRACKER $$$\n')
-    print('WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES?\n')
-    print("LET'S GET STARTED THEN!\n")
+    print(' $$$ WELCOME TO BUDGET TRACKER $$$\n')
+    print(' WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES?\n')
+    print(" LET'S GET STARTED THEN!\n")
     print('\n')
-    input("Press ENTER to begin... ")
+    input(" Press ENTER to begin... \n")
 
 
 def main():
