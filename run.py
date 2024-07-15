@@ -95,7 +95,7 @@ def exit_program():
     exit()
 
 
-def budget_decision():
+def budget_decision(new_month):
     """
     Prompt user for the next step when previous function was completed
     """    
@@ -250,7 +250,6 @@ def add_income(new_month):
             break
         elif choice == '2':
             budget_summary(new_month)
-            budget_decision()
             break
         elif choice == '3':
             main()
@@ -359,7 +358,6 @@ def add_outgoings(new_month):
             choice = input('Enter your choice here:\n').strip()
             if choice == '1':
                 budget_summary(new_month)
-                budget_decision()
                 break
             elif choice == '2':
                 main()
@@ -490,6 +488,8 @@ def budget_summary(new_month):
             print(f"Total Income: €{total_income:.2f}")  # convert amount into float  
             print(f"Total Outgoings: €{total_outgoings:.2f}")
             print(f"Balance: €{balance:.2f}\n")
+        budget_decision(new_month)
+
 
 
 def budget_breakdown(new_month):
@@ -497,32 +497,36 @@ def budget_breakdown(new_month):
     Display budget detailed data to the user.
     """
     clear_screen()
-    # display the data so that it can be acessed and deleted
-    all_values = tracker.get_all_values()
-    if not all_values:
-        print("Data is not availabe")
-        return
-    # skip the header row (first row)
-    data_rows = all_values[1:]
+    while True:
+        # display the data so that it can be acessed and deleted
+        all_values = tracker.get_all_values()
+        if not all_values:
+            print("Data is not availabe")
+            return
+        # skip the header row (first row)
+        data_rows = all_values[1:]
 
-    # design the table
-    print("-" * 60) 
-    print(
-        f"{'Index':<7}{'Month':<10}{'Category':<20}"
-        f"{'Income':<10}{'Outgoings':<10}")
-    print("-" * 60)
-    
-    for index, row in enumerate(data_rows, start=1):
-        month = row[0]
-        category = row[1]
-        income = row[2] if row[2] else '0'
-        outgoings = row[3] if row[3] else '0'
+        # design the table
+        print("-" * 60) 
         print(
-            f'{index:<7}{month:<10}{category:<20}'
-            f'{income:<10}{outgoings:<10}')
-    print("\n")
-    input("Press ENTER to EXIT... ")
-    exit_program()
+            f"{'Index':<7}{'Month':<10}{'Category':<20}"
+            f"{'Income':<10}{'Outgoings':<10}")
+        print("-" * 60)
+        
+        for index, row in enumerate(data_rows, start=1):
+            month = row[0]
+            if new_month in month:
+                category = row[1]
+                income = row[2] if row[2] else '0'
+                outgoings = row[3] if row[3] else '0'
+                print(
+                    f'{index:<7}{month:<20}{category:<18}'
+                    f'{income:<10}{outgoings:<10}')
+                print("\n")
+
+                
+        input("Press ENTER to EXIT... \n")
+        exit_program()
 
 
 def delete_entry(new_month):
@@ -537,7 +541,7 @@ def delete_entry(new_month):
 
     while True:
         try:
-            budget_breakdown()
+            budget_breakdown(new_month)
             print("\n")
             index_to_delete = int(input(
                     "What line number you wish to delete?\n***Press 'X' Exit ").strip())
@@ -587,7 +591,6 @@ def main():
             if choice == 1:
                 catch_month()
                 budget_summary(new_month)
-                budget_decision()
                 break
             elif choice == 2:
                 clear_screen()
