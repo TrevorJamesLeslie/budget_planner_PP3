@@ -318,7 +318,7 @@ def add_outgoings(new_month):
                     category, outgoings = user_input.split(',')
                     category = category.strip()
                     outgoings = outgoings.strip()
-                    if not income.isdigit():
+                    if not outgoings.isdigit():
                         raise ValueError("Income amount must be a digit.")
                     outgoings = int(outgoings)
 
@@ -341,7 +341,6 @@ def add_outgoings(new_month):
                 clear_screen()
                 print(f'Error: {e}')
                 input("Press ENTER to continue... ")
-                clear_screen()
                 continue
             print('Press ENTER To Continue Adding...\n')
             print("Or choose from following options:")
