@@ -100,18 +100,18 @@ def budget_decision():
     Prompt user for the next step when previous function was completed
     """    
     while True:
-        print('HOPE YOU ARE HAPPY WITH WHAT YOU SEE.' )
+        print('HOPE YOU ARE HAPPY WITH WHAT YOU SEE... ' )
         print('WHAT WOULD YOU LIKE TO DO NOW?\n')
-        print('1. Go BACK to Main Menu.')
-        print(f'2. Show {new_month} budget breakdown\n3. EXIT\n')
+        print(f'1. Show {new_month} budget breakdown')
+        print('2. Go to Main Menu \n3. EXIT\n')
         try:
             choice = int(input('Enter your choice here:\n').strip())
             print("\n")
             if choice == 1:
-                main()
+                budget_breakdown(new_month)
                 break
             if choice == 2:
-                budget_breakdown()
+                main()
                 break
             elif choice == 3:
                 exit_program()
@@ -125,7 +125,6 @@ def budget_decision():
             clear_screen()
             print('Invalid data. Please enter a number from the list.\n')
             input("Press Enter to continue...\n")
-
 
 def income_categories(new_month):
     """
@@ -251,6 +250,7 @@ def add_income(new_month):
             break
         elif choice == '2':
             budget_summary(new_month)
+            budget_decision()
             break
         elif choice == '3':
             main()
@@ -359,6 +359,7 @@ def add_outgoings(new_month):
             choice = input('Enter your choice here:\n').strip()
             if choice == '1':
                 budget_summary(new_month)
+                budget_decision()
                 break
             elif choice == '2':
                 main()
@@ -475,28 +476,27 @@ def budget_summary(new_month):
 
     balance = total_income - total_outgoings
     # Append totals to the 'summary' worksheet
-    summary.append_row([new_month, total_income, total_outgoings, balance])
-    summary_data = {
-        "Month": [new_month], "Total income": [total_income],
-        "Total outgoings": [total_outgoings], "balance": [balance]
-    }
-    if not month_rows:
-        print(f"No data available for {new_month}.")
-    else:
-        print(f"Budget Summary for {new_month}")
-        print(f"Total Income: €{total_income:.2f}")  # convert amount into float  
-        print(f"Total Outgoings: €{total_outgoings:.2f}")
-        print(f"Balance: €{balance:.2f}\n")
+    if new_month in month_rows:
+        summary.append_row([new_month, total_income, total_outgoings, balance])
+    else:    
+        summary_data = {
+            "Month": [new_month], "Total income": [total_income],
+            "Total outgoings": [total_outgoings], "balance": [balance]
+        }
+        if not month_rows:
+            print(f"No data available for {new_month}.")
+        else:
+            print(f"Budget Summary for {new_month}")
+            print(f"Total Income: €{total_income:.2f}")  # convert amount into float  
+            print(f"Total Outgoings: €{total_outgoings:.2f}")
+            print(f"Balance: €{balance:.2f}\n")
 
-    budget_decision()
 
-
-def budget_breakdown():
+def budget_breakdown(new_month):
     """
     Display budget detailed data to the user.
     """
     clear_screen()
-    global new_month
     # display the data so that it can be acessed and deleted
     all_values = tracker.get_all_values()
     if not all_values:
@@ -520,9 +520,9 @@ def budget_breakdown():
         print(
             f'{index:<7}{month:<10}{category:<20}'
             f'{income:<10}{outgoings:<10}')
+    print("\n")
     input("Press ENTER to EXIT... ")
     exit_program()
-
 
 
 def delete_entry(new_month):
@@ -587,7 +587,7 @@ def main():
             if choice == 1:
                 catch_month()
                 budget_summary(new_month)
-                #budget_decision()
+                budget_decision()
                 break
             elif choice == 2:
                 clear_screen()
@@ -614,7 +614,6 @@ def main():
             clear_screen()
             print('Invalid data. Please enter a number from the list.\n')
             input("Press Enter to continue...\n")
-
 # calling the main function
 welcome_page()
 main()
