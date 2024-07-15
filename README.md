@@ -80,21 +80,22 @@ The project utilizes Python to create an application that accesses, displays, an
 
 - **main:** The main function that displays the main menu and handles user input to navigate through the core functionalities.
 - **catch_month:** Prompts the user to select a month to interact with, ensuring valid input.
+- **generate_month:** Checks if a month exists in the tracker and generates a new month if it doesn't.
+- **choose_category:** Lets the user choose whether to enter income or expenses for a selected month.
 - **income_categories:** Allows the user to add income from predefined categories or create new ones.
+- **add_income:** Appends income data to the existing month.
 - **outgoings_categories:** Allows the user to add expenses from predefined categories or create new ones.
+- **add_outgoings:** Appends outgoing data to the existing month.
+- **budget_decision:** Prompts the user for the next step after a function is completed.
 - **budget_summary:** Generates and displays a summary of the selected month's budget.
 - **delete_entry:** Allows the user to delete specific budget entries.
-- **choose_category:** Lets the user choose whether to enter income or expenses for a selected month.
-- **generate_month:** Checks if a month exists in the tracker and generates a new month if it doesn't.
-- **add_income:** Appends income data to the existing month.
-- **add_outgoings:** Appends outgoing data to the existing month.
 
 ### Helper Functions
-- **clear_screen:** Clears the terminal for a cleaner display of the next menu or prompt.
-- **exit_program:** Exits the program with a clear message.
-- **budget_decision:** Prompts the user for the next step after a function is completed.
-- **display_data:** Displays detailed budget data to the user.
 - **welcome_page:** Displays a welcome message to the user.
+- **clear_screen:** Clears the terminal for a cleaner display of the next menu or prompt.
+- **display_data:** Displays detailed budget data to the user.
+- **exit_program:** Exits the program with a clear message.
+
 <br>
 
 # Features
@@ -112,7 +113,7 @@ The project utilizes Python to create an application that accesses, displays, an
    - You will be presented with the following options:
      - 1. Display Budget Summary
      - 2. Generate Budget
-     - 3. Edit Budget
+     - 3. Add data to the existing month
      - 4. Delete Entry
      - 5. EXIT
    ![Main Menu](readme_documents/screenshots/main_menu.png)
@@ -141,11 +142,11 @@ The project utilizes Python to create an application that accesses, displays, an
    ![Budget Summary](readme_documents/screenshots/budget_summary.png)
    - The summary will display the total income, total expenses, and balance for the selected month.
 
-7. **Editing a Budget**
-   - To edit an existing budget, select option 3 from the main menu.
-   - Choose the month you want to edit.
+7. **Add data to the Budget**
+   - To add datda to an existing budget, select option 3 from the main menu.
+   - Choose the month you want to work with.
    ![Edit Budget](readme_documents/screenshots/edit_budget.png)
-   - You can then add or modify income and expenses for that month.
+   - You can then add income and expenses for that month.
 
 8. **Deleting an Entry**
    - To delete an entry, select option 4 from the main menu.
@@ -197,7 +198,7 @@ The project utilizes Python to create an application that accesses, displays, an
 
 # Testing  
 Extensive testing was conducted to ensure the application's functionality. This includes manual testing of all features, validating user inputs, and ensuring seamless interaction with Google Sheets 
-
+![Testing Results](readme_documents/screenshots/testing_results.png)
 ### Code Validation
 - The code was validated using PEP8 standards to ensure readability and maintainability.
 ![PEP8 Validation](readme_documents/screenshots/pep8_validation.png)
