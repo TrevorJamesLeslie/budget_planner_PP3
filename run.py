@@ -497,85 +497,83 @@ def budget_summary(new_month):
         budget_decision(new_month)
 
 
-def budget_breakdown(new_month):
+def budget_breakdown():
     """
     Display budget detailed data to the user.
     """
+    global new_month
     clear_screen()
-    while True:
-        # display the data so that it can be acessed and deleted
-        all_values = tracker.get_all_values()
-        if not all_values:
-            print("Data is not availabe")
-            return
-        # skip the header row (first row)
-        data_rows = all_values[1:]
+    # display the data so that it can be acessed and deleted
+    all_values = tracker.get_all_values()
+    if not all_values:
+        print("Data is not availabe")
+        input("Press Enter to continue... \n")
+        return
 
-        # design the table
-        print("-" * 60)
-        print(
-            f"{'Index':<7}{'Month':<10}{'Category':<20}"
-            f"{'Income':<10}{'Outgoings':<10}")
-        print("-" * 60)
+    # skip the header row (first row)
+    data_rows = all_values[1:]
 
-        for index, row in enumerate(data_rows, start=1):
-            month = row[0]
-            if new_month in month:
-                category = row[1]
-                income = row[2] if row[2] else '0'
-                outgoings = row[3] if row[3] else '0'
-                print(
-                    f'{index:<7}{month:<20}{category:<18}'
-                    f'{income:<10}{outgoings:<10}')
-                print("\n")
+    # design the table
+    print("-" * 65)
+    print(
+        f"{'Index':<7}{'Month':<15}{'Category':<18}"
+        f"{'Income':<10}{'Outgoings':<10}")
+    print("-" * 65)
 
-        input("Press ENTER to EXIT... \n")
-        exit_program()
+    for index, row in enumerate(data_rows, start=1):
+        month = row[0]
+        if new_month in month:
+            category = row[1]
+            income = row[2] if row[2] else '0'
+            outgoings = row[3] if row[3] else '0'
+            print(
+                f'{index:<7}{month:<15}{category:<18}'
+                f'{income:<10}{outgoings:<10}')
+
+    print("\nPress ENTER to go back to the main menu")
+    input()
+    main()
 
 
 def delete_entry(new_month):
     """
     Delete data from the tracker worksheet based on user input.
     """
+    clear_screen()
     all_values = tracker.get_all_values()
 
     if not all_values:
         print("No data available to Delete")
+        input("Press Enter to continue... \n")
         return
 
     while True:
         try:
-            budget_breakdown(new_month)
+            budget_breakdown()
             print("\n")
-            index_to_delete = int(input("What line number you wish to delete?"
-                                        "\n Press 'X' Exit ").strip())
+            index_to_delete = int(input("What line number you wish to delete?\n").strip())
             if index_to_delete > 0 and index_to_delete < len(all_values):
                 tracker.delete_rows(index_to_delete + 1)  # +1indices start at1
-                print(f'Entry at line {
-                        index_to_delete} has been deleted sucesfully')
+                print(f'Entry at line {index_to_delete} has been deleted sucesfully')
                 continue
             else:
-                choice = input().strip().lower
-                if choice == "x":
-                    main()
-                else:
-                    clear_screen()
-                    print("Invalid index. Enter number within the range.")
+                clear_screen()
+                print("Invalid index. Enter number within the range.")
         except ValueError:
             clear_screen()
             print("invalid input. Please enter a number.")
-
+            
 
 def welcome_page():
     """
     Display welcome message to the user with options to choose the next step.
     """
-    print("\n")
-    print(' $$$ WELCOME TO BUDGET TRACKER $$$\n')
-    print(' WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES?\n')
-    print(" LET'S GET STARTED THEN!\n")
+    clear_screen()
+    print('$$$ WELCOME TO BUDGET PLANNER $$$\n')
+    print('WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES?\n')
+    print("LET'S GET STARTED THEN!\n")
     print('\n')
-    input(" Press ENTER to begin... \n")
+    input("Press ENTER to begin... \n")
 
 
 def main():
@@ -608,6 +606,7 @@ def main():
             elif choice == 4:
                 catch_month()
                 delete_entry(new_month)
+                main()
                 break
             elif choice == 5:
                 clear_screen()
@@ -623,7 +622,7 @@ def main():
             print('Invalid data. Please enter a number from the list.\n')
             input("Press Enter to continue...\n")
 
-
+budget_breakdown()
 # calling the main function
 welcome_page()
 main()

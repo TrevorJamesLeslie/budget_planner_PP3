@@ -67,17 +67,17 @@ The entire program is displayed in a Command Line Interface (CLI). The applicati
 
 - **Google API SetUp :**   
 Prior to starting any program function code, the relevant Credentials and API setup took place. Security was a crucial factor in connecting to a Google Account to access the Google Sheets worksheet. Guidance for setting up these authorizations and credentials was provided through the Code Institute's Full Stack Software Development course.
-![Google API Setup](readme_documents/screenshots/google_api_setup.png)
 
 - **Google Sheets :**
 Used to store my data, simulating a database. All data entry and manipulation occur within the terminal, and the user interacts with a clear and straightforward CLI.
-![Google Sheets](readme_documents/screenshots/google_sheets.png)
+- ![Google Sheets](readme_documents/screenshots/google_sheets_data.png)
+- ![Google Sheets Aplied](readme_documents/screenshots/added_income_spreadsheet.png)
 
 ## Python Logic  
 The project utilizes Python to create an application that accesses, displays, and edits data from Google Sheets. The core functionality includes menus created using if/elif statements and user input validation using while loops and try/except statements.
 
 ### Key Functions 
-
+![Google Sheets](readme_documents/screenshots/functions_list.png)
 - **main:** The main function that displays the main menu and handles user input to navigate through the core functionalities.
 - **catch_month:** Prompts the user to select a month to interact with, ensuring valid input.
 - **generate_month:** Checks if a month exists in the tracker and generates a new month if it doesn't.
@@ -106,7 +106,7 @@ The project utilizes Python to create an application that accesses, displays, an
 
 1. **Starting the Application**
    - When you run the application, you will be greeted with a welcome message.
-   ![Welcome Message](readme_documents/screenshots/welcome_message.png)
+   ![Welcome Message](readme_documents/screenshots/welcome_screen.png)
    - Press "ENTER" to begin.
 
 2. **Main Menu**
@@ -127,8 +127,10 @@ The project utilizes Python to create an application that accesses, displays, an
 4. **Entering Income**
    - After selecting or creating a month, you can choose to add income.
    - Select the income category (e.g., Salary, Sales) or create a new category.
-   ![Add Income](readme_documents/screenshots/add_income.png)
    - Enter the income amount when prompted.
+   ![Add Income](readme_documents/screenshots/add_income.png)
+   ![Add Income Manually](readme_documents/screenshots/add_income_manual.png)
+
 
 5. **Entering Expenses**
    - You can also choose to add expenses for the selected month.
@@ -141,11 +143,13 @@ The project utilizes Python to create an application that accesses, displays, an
    - Choose the month you want to view.
    ![Budget Summary](readme_documents/screenshots/budget_summary.png)
    - The summary will display the total income, total expenses, and balance for the selected month.
+   - You will then have a chnace to see detailed breakdown of the budget.
+   ![Budget Breakdown](readme_documents/screenshots/budget_breakdown.png) 
 
 7. **Add data to the Budget**
    - To add datda to an existing budget, select option 3 from the main menu.
    - Choose the month you want to work with.
-   ![Edit Budget](readme_documents/screenshots/edit_budget.png)
+   ![Add data](readme_documents/screenshots/choice_income_outcome.png)
    - You can then add income and expenses for that month.
 
 8. **Deleting an Entry**
@@ -181,8 +185,8 @@ The project utilizes Python to create an application that accesses, displays, an
    - [Gitpod](https://www.gitpod.io/) - used as a workspace for developing the code and testing the program.
    - **Git:** Used for version control.
    - [Heroku](https://heroku.com/apps) - used for deploying the project.
-   - [PEP8 Validator](https://pep8ci.herokuapp.com/#) - used for validating the Python code.
-   - [Lucidchart](https://www.lucidchart.com/pages/) - used to create the flowchart needed during project planning.
+   - [PEP8 Validator](https://pep8ci.herokuapp.com/) - used for validating the Python code.
+   - [Canva](https://canva.com/) - used to create the flowchart needed during project planning.
    - [Tiny PNG](https://tinypng.com/) - used to compress images for readme.
 -----  
 
@@ -198,10 +202,12 @@ The project utilizes Python to create an application that accesses, displays, an
 
 # Testing  
 Extensive testing was conducted to ensure the application's functionality. This includes manual testing of all features, validating user inputs, and ensuring seamless interaction with Google Sheets 
-![Testing Results](readme_documents/screenshots/testing_results.png)
+![Testing Results](readme_documents/screenshots/error_message.png)
+![Testing Results](readme_documents/screenshots/invalid_input.png)
+![Testing Results](readme_documents/screenshots/existing_month.png)
 ### Code Validation
 - The code was validated using PEP8 standards to ensure readability and maintainability.
-![PEP8 Validation](readme_documents/screenshots/pep8_validation.png)
+![PEP8 Validation](readme_documents/screenshots/python_linter.png)
 
 ### Known Bugs / fixed bugs 
 - #### No known bugs recorded at the end of the project.
@@ -327,9 +333,6 @@ Heroku has been used to deploy this project as Python is used as a back-end lang
 - [SoloLrarn](https://www.sololearn.com/en/) - Python constant practise.
 - [Study Music, Concentration, Focus](https://www.youtube.com/results?search_query=study+music+concentration+focus) - To keep me calm during work.
 
-# Conclusion
-
-The Budget Planner project provides a robust and user-friendly solution for managing personal finances. With its integration with Google Sheets, I can easily track my income and expenses, generate summaries, and make informed financial decisions. The CLI interface ensures accessibility and ease of use, making budget management straightforward and efficient. This tool has greatly helped me in understanding my finances better and planning my budget effectively.
 
 ### Acknowledgements
 
