@@ -50,7 +50,8 @@ def typingPrint(text):
         sys.stdout.write(character)
         sys.stdout.flush()
         time.sleep(0.05)
-  
+
+
 def typingInput(text):
     """
     Create a typing like effect for inputs statements
@@ -59,8 +60,9 @@ def typingInput(text):
         sys.stdout.write(character)
         sys.stdout.flush()
         time.sleep(0.05)
-    value = input()  
+    value = input()
     return value
+
 
 def clear_screen():
     """
@@ -142,7 +144,7 @@ def budget_decision(new_month):
             print("\n")
             if choice == 1:
                 budget_breakdown()
-                input() #  create space/pause for user to swith between pages
+                input()  # create space/pause for user to swith between pages
                 main()
                 break
             if choice == 2:
@@ -202,8 +204,8 @@ def income_categories(new_month):
                 data[new_month]['Category'].append(category)
                 data[new_month]['Income'].append(income)
                 clear_screen()
-                typingPrint(f'Amount of €{income:.2f} was added successfully to the '
-                      f'{new_month} income.\n')
+                typingPrint(f'Amount of €{income:.2f} added successfully '
+                            f'to the {new_month} income.\n')
                 continue
             elif choice == 3:
                 add_income(new_month)
@@ -263,8 +265,8 @@ def add_income(new_month):
                 data[new_month]['Category'].append(category)
                 data[new_month]['Income'].append(income)
                 clear_screen()
-                typingPrint(f'Amount: €{income:.2f} for {category} was added '
-                      f'successfully to the {new_month} Income.\n')
+                typingPrint(f'Amount: €{income:.2f} for {category} added '
+                            f'successfully to the {new_month} Income.\n')
             else:
                 clear_screen()
                 raise ValueError("Invalid input format.")
@@ -328,8 +330,8 @@ def outgoings_categories(new_month):
                 data[new_month]['Category'].append(category)
                 data[new_month]['Outgoings'].append(outgoings)
                 clear_screen()
-                typingPrint(f'Amount of €{outgoings:.2f} was added sucessfully to '
-                      f'{new_month} outgoings.\n')
+                typingPrint(f'Amount of €{outgoings:.2f} added '
+                            f'sucessfully to {new_month} outgoings.\n')
                 continue
             elif choice == 9:
                 add_outgoings(new_month)
@@ -384,8 +386,8 @@ def add_outgoings(new_month):
                 data[new_month]['Category'].append(category)
                 data[new_month]['Outgoings'].append(outgoings)
                 clear_screen()
-                typingPrint(f'Amount €{outgoings:.2f} for {category} was added '
-                      f'successfully to {new_month} Outgoings.\n')
+                typingPrint(f'Amount €{outgoings:.2f} for {category} added '
+                            f'successfully to {new_month} Outgoings.\n')
             else:
                 clear_screen()
                 raise ValueError("Invalid input format.")
@@ -529,7 +531,6 @@ def budget_summary(new_month):
     print(f"Total Income: €{total_income:.2f}")  # convert into float
     print(f"Total Outgoings: €{total_outgoings:.2f}")
     print(f"Balance: €{balance:.2f}\n")
-    
     budget_decision(new_month)
 
 
@@ -546,7 +547,7 @@ def budget_breakdown():
         print("Data is not availabe")
         typingInput("Press Enter to continue... \n")
         return
-        
+
     # skip the header row (first row)
     data_rows = all_values[1:]
 
@@ -565,7 +566,7 @@ def budget_breakdown():
             print(
                 f'{index:<7}{month:<15}{category:<18}'
                 f'{income:<10}{outgoings:<10}')
-            
+
 
 def delete_entry(new_month):
     """
@@ -580,11 +581,12 @@ def delete_entry(new_month):
                 typingInput("Press Enter to continue... \n")
                 return
             print("\n")
-            index_to_delete = int(input("What line number you wish to delete?\n").strip())
+            index_to_delete = int(input(
+                    "What line number you wish to delete?\n").strip())
             if index_to_delete > 0 and index_to_delete < len(all_values):
                 tracker.delete_rows(index_to_delete + 1)  # +1indices start at1
                 clear_screen()
-                print(f'Entry at line {index_to_delete} has been deleted sucesfully\n')
+                print(f'Entry at line {index_to_delete} deleted sucesfully\n')
                 typingInput("Press ENTER to go back to the Main Menu... \n")
                 main()
             else:
@@ -644,4 +646,3 @@ def main():
 # calling the main function
 welcome_page()
 main()
-
