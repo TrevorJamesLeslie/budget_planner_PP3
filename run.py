@@ -530,25 +530,19 @@ def budget_breakdown():
                 f'{index:<7}{month:<15}{category:<18}'
                 f'{income:<10}{outgoings:<10}')
 
-    print("\nPress ENTER to go back to the main menu")
-    input()
-    main()
 
 
 def delete_entry(new_month):
     """
     Delete data from the tracker worksheet based on user input.
     """
-    clear_screen()
     all_values = tracker.get_all_values()
-
-    if not all_values:
-        print("No data available to Delete")
-        input("Press Enter to continue... \n")
-        return
-
     while True:
         try:
+            if not all_values:
+                print("No data available to Delete")
+                input("Press Enter to continue... \n")
+                return
             budget_breakdown()
             print("\n")
             index_to_delete = int(input("What line number you wish to delete?\n").strip())
@@ -562,8 +556,8 @@ def delete_entry(new_month):
         except ValueError:
             clear_screen()
             print("invalid input. Please enter a number.")
+    
             
-
 def welcome_page():
     """
     Display welcome message to the user with options to choose the next step.
@@ -622,7 +616,7 @@ def main():
             print('Invalid data. Please enter a number from the list.\n')
             input("Press Enter to continue...\n")
 
-budget_breakdown()
+delete_entry(new_month)
 # calling the main function
 welcome_page()
 main()
