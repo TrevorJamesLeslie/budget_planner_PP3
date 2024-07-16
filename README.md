@@ -57,7 +57,7 @@ The entire program is displayed in a Command Line Interface (CLI). The applicati
 
 <br>
 
-# Project Creation Process
+# Project Creation
 
 ## Planning 
 
@@ -70,14 +70,15 @@ Prior to starting any program function code, the relevant Credentials and API se
 
 - **Google Sheets :**
 Used to store my data, simulating a database. All data entry and manipulation occur within the terminal, and the user interacts with a clear and straightforward CLI.
-- ![Google Sheets](readme_documents/screenshots/google_sheets_data.png)
+
 - ![Google Sheets Aplied](readme_documents/screenshots/added_income_spreadsheet.png)
 
 ## Python Logic  
 The project utilizes Python to create an application that accesses, displays, and edits data from Google Sheets. The core functionality includes menus created using if/elif statements and user input validation using while loops and try/except statements.
 
-### Key Functions 
-![Google Sheets](readme_documents/screenshots/functions_list.png)
+### Key Functions
+
+ [Function List](readme_documents/screenshots/functions_list.png)
 - **main:** The main function that displays the main menu and handles user input to navigate through the core functionalities.
 - **catch_month:** Prompts the user to select a month to interact with, ensuring valid input.
 - **generate_month:** Checks if a month exists in the tracker and generates a new month if it doesn't.
@@ -105,63 +106,71 @@ The project utilizes Python to create an application that accesses, displays, an
 ### Step-by-Step Guide
 
 1. **Starting the Application**
+
+- *[Show Welcome Message](readme_documents/screenshots/welcome_screen.png)*
+
    - When you run the application, you will be greeted with a welcome message.
-   ![Welcome Message](readme_documents/screenshots/welcome_screen.png)
    - Press "ENTER" to begin.
 
 2. **Main Menu**
+- *[Show Main Menu](readme_documents/screenshots/main_menu.png)*
+
    - You will be presented with the following options:
-     - 1. Display Budget Summary
-     - 2. Generate Budget
-     - 3. Add data to the existing month
-     - 4. Delete Entry
-     - 5. EXIT
-   ![Main Menu](readme_documents/screenshots/main_menu.png)
+       1. Display Budget Summary
+       2. Generate Budget
+       3. Add data to the existing month
+       4. Delete Entry
+       5. EXIT
+   
    - Enter the number corresponding to the action you want to take.
 
 3. **Generating a New Budget**
+- *[Show Generate Budget](readme_documents/screenshots/generate_budget.png)*
+
    - If you choose to generate a new budget (option 2), you will be prompted to enter the first three letters of the month you are interested in (e.g., "Jan" for January).
-   ![Generate Budget](readme_documents/screenshots/generate_budget.png)
    - If the month does not exist in the tracker, you will have the option to create it.
 
 4. **Entering Income**
+- *[Display Add Income](readme_documents/screenshots/add_income.png)*
+- *[Display Additional Income](readme_documents/screenshots/additional_income.png)*
+
    - After selecting or creating a month, you can choose to add income.
    - Select the income category (e.g., Salary, Sales) or create a new category.
    - Enter the income amount when prompted.
-   ![Add Income](readme_documents/screenshots/add_income.png)
-   ![Add Income Manually](readme_documents/screenshots/add_income_manual.png)
+
 
 
 5. **Entering Expenses**
-   - You can also choose to add expenses for the selected month.
-   - Select the expense category (e.g., House Bills, Shopping) or create a new category.
-   ![Add Expenses](readme_documents/screenshots/add_expenses.png)
+- *[Add Expenses](readme_documents/screenshots/add_outgoings.png)*
+   - You can also choose to add outgoings for the selected month.
+   - Select the outgoing category (e.g., House Bills, Shopping) or create a new category.
    - Enter the expense amount when prompted.
 
 6. **Viewing the Budget Summary**
+ - *[Budget Breakdown](readme_documents/screenshots/budget_breakdown.png)*
    - To view the budget summary, select option 1 from the main menu.
    - Choose the month you want to view.
-   ![Budget Summary](readme_documents/screenshots/budget_summary.png)
    - The summary will display the total income, total expenses, and balance for the selected month.
    - You will then have a chnace to see detailed breakdown of the budget.
-   ![Budget Breakdown](readme_documents/screenshots/budget_breakdown.png) 
 
 7. **Add data to the Budget**
+- *[Add data](readme_documents/screenshots/choice_income_outcome.png)*
    - To add datda to an existing budget, select option 3 from the main menu.
    - Choose the month you want to work with.
-   ![Add data](readme_documents/screenshots/choice_income_outcome.png)
    - You can then add income and expenses for that month.
 
 8. **Deleting an Entry**
+- *[Delete Entry](readme_documents/screenshots/delete_entry.png)*
    - To delete an entry, select option 4 from the main menu.
    - Choose the month and the specific entry you want to delete.
-   ![Delete Entry](readme_documents/screenshots/delete_entry.png)
+
    - Confirm the deletion.
 
 9. **Exiting the Program**
+- *[Exit Program](readme_documents/screenshots/exit_program.png)*
    - To exit the program, select option 5 from the main menu.
    - A goodbye message will be displayed, and the program will close.
-   ![Exit Program](readme_documents/screenshots/exit_program.png)
+
 -----  
 
 <br>
@@ -202,9 +211,16 @@ The project utilizes Python to create an application that accesses, displays, an
 
 # Testing  
 Extensive testing was conducted to ensure the application's functionality. This includes manual testing of all features, validating user inputs, and ensuring seamless interaction with Google Sheets 
-![Testing Results](readme_documents/screenshots/error_message.png)
-![Testing Results](readme_documents/screenshots/invalid_input.png)
-![Testing Results](readme_documents/screenshots/existing_month.png)
+- *[Testing Results 1](readme_documents/screenshots/error_message.png)*
+- *[Testing Results 2](readme_documents/screenshots/invalid_input.png)*
+- *[Testing Results 3](readme_documents/screenshots/existing_month.png)*
+
+## Manual Testing
+Manual testing was conistently implemented during the processs. Few different versions were used throughout the project untill an ultimate was found.
+
+- *[Manual Testing 1](readme_documents/screenshots/manual_testing_1.png)*
+- *[ManualTesting 2 ](readme_documents/screenshots/manual_testing_2.png)*
+
 ### Code Validation
 - The code was validated using PEP8 standards to ensure readability and maintainability.
 ![PEP8 Validation](readme_documents/screenshots/python_linter.png)
@@ -213,6 +229,7 @@ Extensive testing was conducted to ensure the application's functionality. This 
 - #### No known bugs recorded at the end of the project.
 No known bugs recorded at the end of the project. Continuous testing ensured that all issues were resolved promptly.
 
+<br>
 
 # Setting up & Deployment    
   
@@ -332,6 +349,18 @@ Heroku has been used to deploy this project as Python is used as a back-end lang
 - [ChatGPT](https://openai.com/chatgpt) -  Quick information when needed, found very useful when prompting ("explain as if to a 10 year old"), used also for help in readme.
 - [SoloLrarn](https://www.sololearn.com/en/) - Python constant practise.
 - [Study Music, Concentration, Focus](https://www.youtube.com/results?search_query=study+music+concentration+focus) - To keep me calm during work.
+
+
+### Personal Comments
+
+This project was a great experience. 
+Finding the flow felt absolutely amazing, I knew what I was doing and things were working... until they werent. 
+A massive heelp was taking a break as often coming back with a fresh mind was the solution. Use of chat gpt was really helpful to find quick answers and expalnation, it saved a lot of research work and found that it explained well once the right prompt was given. As I was progressing through the project I found myslef expanding the content as, since it was made with myslef in mind,I I knew exactly what I needed.
+the biggest challenge was understanding the logic behind it, there was plenty of lightbulb moments with huge excitment and love for language efficiency. 
+A lot of time was spend making things work , changing one thing and then everything seemed to fall apart (happened mostly during late night/early mornings, which only highlights the importance of a good break). I truly feel proud of this project as I know I will be actually using it.<br>
+**Advice I would give myslef if I had started again**: 
+- 1. Take breaks
+- 2. Plan the flow to the detail before starting to code (I had done chart and spreadsheets but left it unfinished due to time, but I should have spend more time planning)
 
 
 ### Acknowledgements

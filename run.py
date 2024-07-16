@@ -75,7 +75,7 @@ def welcome_page():
     """
     clear_screen()
     print("\n")
-    print('$$$ WELCOME TO BUDGET PLANNER $$$\n')
+    print('$$$ WELCOME TO THE BUDGET PLANNER $$$\n')
     print('WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES?')
     print("LET'S GET STARTED THEN!\n")
     print('\n')
@@ -316,7 +316,7 @@ def outgoings_categories(new_month):
         print('9. Create additional Outgoings category\n10. Main Main')
         print('11. Budget Summary\n12. EXIT\n')
         try:
-            choice = int(input('Enter Your Choice (1-11): ').strip())
+            choice = int(input('Enter Your Choice (1-11): \n').strip())
             if choice >= 1 and choice <= 8:
                 clear_screen()
                 category = outgoings_list[choice - 1]
@@ -532,6 +532,7 @@ def budget_summary(new_month):
     
     budget_decision(new_month)
 
+
 def budget_breakdown():
     """
     Display budget detailed data to the user.
@@ -591,7 +592,7 @@ def delete_entry(new_month):
                 print("Invalid index. Enter number within the range.")
         except ValueError:
             clear_screen()
-            print("invalid input. Please enter a number.")
+            print("Invalid input. Please enter a number.")
 
 
 def main():
