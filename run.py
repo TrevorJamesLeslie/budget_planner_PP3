@@ -122,6 +122,8 @@ def budget_decision(new_month):
             print("\n")
             if choice == 1:
                 budget_breakdown()
+                input() #  create space/pause for user to swith between pages
+                main()
                 break
             if choice == 2:
                 main()
@@ -497,23 +499,18 @@ def budget_summary(new_month):
             total_outgoings += outgoings
 
     balance = total_income - total_outgoings
-    # Append totals to the 'summary' worksheet
-    if new_month in month_rows:
-        summary.append_row([new_month, total_income, total_outgoings, balance])
-    else:
-        summary_data = {
-            "Month": [new_month], "Total Income": [total_income],
-            "Total Outgoings": [total_outgoings], "Balance": [balance]
-        }
-        if not month_rows:
-            print(f"No data available for this month")
-        else:
-            print(f"Budget Summary for {new_month}")
-            print(f"Total Income: €{total_income:.2f}")  # convert into float
-            print(f"Total Outgoings: €{total_outgoings:.2f}")
-            print(f"Balance: €{balance:.2f}\n")
-        budget_decision(new_month)
+    # Check if the month already exists in the summary worksheet
+    summary_months = summary.col_values(1)  # months are in the first column
 
+    if new_month not in summary_months:
+        summary.append_row([new_month, total_income, total_outgoings, balance])
+
+    print(f"Budget Summary for {new_month}")
+    print(f"Total Income: €{total_income:.2f}")  # convert into float
+    print(f"Total Outgoings: €{total_outgoings:.2f}")
+    print(f"Balance: €{balance:.2f}\n")
+    
+    budget_decision(new_month)
 
 def budget_breakdown():
     """
@@ -521,12 +518,14 @@ def budget_breakdown():
     """
     global new_month
     clear_screen()
+
     # display the data so that it can be acessed and deleted
     all_values = tracker.get_all_values()
     if not all_values:
         print("Data is not availabe")
         input("Press Enter to continue... \n")
         return
+        
     # skip the header row (first row)
     data_rows = all_values[1:]
 
@@ -545,9 +544,7 @@ def budget_breakdown():
             print(
                 f'{index:<7}{month:<15}{category:<18}'
                 f'{income:<10}{outgoings:<10}')
-            print('\n')
-            input("Press ENTER to go back to the Main Menu... \n")
-
+            
 
 def delete_entry(new_month):
     """
@@ -555,12 +552,12 @@ def delete_entry(new_month):
     """
     all_values = tracker.get_all_values()
     while True:
+        budget_breakdown()
         try:
             if not all_values:
                 print("No data available to Delete")
                 input("Press Enter to continue... \n")
                 return
-            budget_breakdown()
             print("\n")
             index_to_delete = int(input("What line number you wish to delete?\n").strip())
             if index_to_delete > 0 and index_to_delete < len(all_values):
@@ -621,8 +618,9 @@ def main():
             clear_screen()
             print('Invalid data. Please enter a number from the list.\n')
             input("Press Enter to continue...\n")
+
+
 # calling the main function
 welcome_page()
 main()
-delete_entry(new_month)
 
