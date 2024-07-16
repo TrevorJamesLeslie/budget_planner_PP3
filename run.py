@@ -1,5 +1,7 @@
 # Python Typing Text Effect
 # Credits: 101computing.net/python-typing-text-effect/
+import time
+import sys
 import os
 import gspread
 from google.oauth2.service_account import Credentials
@@ -40,7 +42,25 @@ new_month = ""
 
 
 # Tutorial:https://www.101computing.net/python-typing-text-effect/
-
+def typingPrint(text):
+    """
+    Create a typing like effect for print statements
+    """
+    for character in text:
+        sys.stdout.write(character)
+        sys.stdout.flush()
+        time.sleep(0.05)
+  
+def typingInput(text):
+    """
+    Create a typing like effect for inputs statements
+    """
+    for character in text:
+        sys.stdout.write(character)
+        sys.stdout.flush()
+        time.sleep(0.05)
+    value = input()  
+    return value
 
 def clear_screen():
     """
@@ -54,12 +74,12 @@ def welcome_page():
     Display welcome message to the user with options to choose the next step.
     """
     clear_screen()
-
+    print("\n")
     print('$$$ WELCOME TO BUDGET PLANNER $$$\n')
-    print('WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES?\n')
+    print('WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES?')
     print("LET'S GET STARTED THEN!\n")
     print('\n')
-    input("Press ENTER to begin... ")
+    typingInput("Press ENTER to begin... ")
 
 
 def catch_month():
@@ -102,9 +122,9 @@ def exit_program():
     Function to exit the program
     """
     clear_screen()
-    print("Exiting the program")
-    print("See you next time!\n")
-    print("GOODBYE")
+    typingPrint("Exiting the program")
+    typingPrint("See you next time!\n")
+    typingPrint("GOODBYE")
     exit()
 
 
@@ -135,11 +155,11 @@ def budget_decision(new_month):
                 clear_screen()
                 print('Number out of range.\n')
                 print('Please enter a number from the list provided:\n')
-                input("Press Enter to continue...\n")
+                typingInput("Press Enter to continue...\n")
         except ValueError:
             clear_screen()
             print('Invalid data. Please enter a number from the list.\n')
-            input("Press Enter to continue...\n")
+            typingInput("Press Enter to continue...\n")
 
 
 def income_categories(new_month):
@@ -172,7 +192,7 @@ def income_categories(new_month):
                     except ValueError:
                         clear_screen()
                         print("Income value must be a digit.\n")
-                        input("Press ENTER to continue... ")
+                        typingInput("Press ENTER to continue... ")
                         clear_screen()
 
                 tracker.append_row([new_month, category, income, ''])
@@ -182,7 +202,7 @@ def income_categories(new_month):
                 data[new_month]['Category'].append(category)
                 data[new_month]['Income'].append(income)
                 clear_screen()
-                print(f'Amount of €{income:.2f} was added successfully to the '
+                typingPrint(f'Amount of €{income:.2f} was added successfully to the '
                       f'{new_month} income.\n')
                 continue
             elif choice == 3:
@@ -201,12 +221,12 @@ def income_categories(new_month):
                 clear_screen()
                 print('Number out of range.\n')
                 print('Please enter a number from the list provided:\n')
-                input("Press Enter to continue...\n")
+                typingInput("Press Enter to continue...\n")
                 clear_screen()
         except ValueError:
             clear_screen()
             print('Invalid data. Please enter a number from the list.\n')
-            input("Press Enter to continue...\n")
+            typingInput("Press Enter to continue...\n")
             clear_screen()
 
 
@@ -243,7 +263,7 @@ def add_income(new_month):
                 data[new_month]['Category'].append(category)
                 data[new_month]['Income'].append(income)
                 clear_screen()
-                print(f'Amount: €{income:.2f} for {category} was added '
+                typingPrint(f'Amount: €{income:.2f} for {category} was added '
                       f'successfully to the {new_month} Income.\n')
             else:
                 clear_screen()
@@ -252,7 +272,7 @@ def add_income(new_month):
         except ValueError as e:
             clear_screen()
             print(f'Error: {e}')
-            input("Press ENTER to continue... ")
+            typingInput("Press ENTER to continue... ")
             clear_screen()
             continue
         print('Press ENTER To Continue Adding...\n')
@@ -308,7 +328,7 @@ def outgoings_categories(new_month):
                 data[new_month]['Category'].append(category)
                 data[new_month]['Outgoings'].append(outgoings)
                 clear_screen()
-                print(f'Amount of €{outgoings:.2f} was added sucessfully to '
+                typingPrint(f'Amount of €{outgoings:.2f} was added sucessfully to '
                       f'{new_month} outgoings.\n')
                 continue
             elif choice == 9:
@@ -327,12 +347,12 @@ def outgoings_categories(new_month):
                 clear_screen()
                 print('Number out of range.\n')
                 print('Please enter a number from the list provided:\n')
-                input("Press Enter to continue...\n")
+                typingInput("Press Enter to continue...\n")
                 clear_screen()
         except ValueError:
             clear_screen()
             print('Invalid data. Please enter a number from the list.\n')
-            input("Press Enter to continue...\n")
+            typingInput("Press Enter to continue...\n")
             clear_screen()
 
 
@@ -344,7 +364,7 @@ def add_outgoings(new_month):
     while True:
         print(f"ADDING {new_month.upper()} OUTGOINGS:\n")
         print("TYPE NAME AND THE AMOUNT (e.g.: 'Clothes, 200'): ")
-        print('Note. Amount must be a DIGIT\n')
+        typingPrint('Note. Amount must be a DIGIT\n')
         try:
             user_input = input().strip().capitalize()
             if ',' in user_input:
@@ -364,7 +384,7 @@ def add_outgoings(new_month):
                 data[new_month]['Category'].append(category)
                 data[new_month]['Outgoings'].append(outgoings)
                 clear_screen()
-                print(f'Amount €{outgoings:.2f} for {category} was added '
+                typingPrint(f'Amount €{outgoings:.2f} for {category} was added '
                       f'successfully to {new_month} Outgoings.\n')
             else:
                 clear_screen()
@@ -373,7 +393,7 @@ def add_outgoings(new_month):
         except ValueError as e:
             clear_screen()
             print(f'Error: {e}')
-            input("Press ENTER to continue... ")
+            typingInput("Press ENTER to continue... ")
             continue
         print('Press ENTER To Continue Adding...\n')
         print("Or choose from following options:")
@@ -406,7 +426,7 @@ def generate_month():
             clear_screen()
             if new_month:
                 if new_month in existing_months:
-                    print(f'Oopsi...{new_month} already EXISTS.')
+                    typingPrint(f'Oopsi...{new_month} already EXISTS.')
                     print('What would you like to do? \n')
                     print('1. Add Income or Outgoings to this month')
                     print('2. Go back to Main Menu')
@@ -428,7 +448,7 @@ def generate_month():
                     # existing_months.append(new_month)
                     data[new_month] = {
                             "Category": [], "Income": [], "Outgoings": []}
-                    print(f"{new_month} has been added sucessfully\n")
+                    typingPrint(f"{new_month} has been added sucessfully\n")
                     ("\n")
                     choose_category(new_month)
                     break
@@ -436,12 +456,12 @@ def generate_month():
                 clear_screen()
                 print(f'"{user_input}" Does not match the criteria.\n')
                 print("Please Try Again.\n")
-                input("Press Enter to continue...\n")
+                typingInput("Press Enter to continue...\n")
                 clear_screen()
         except ValueError:
             clear_screen()
             print("Oops, somtheing went wrong. Please try again.\n")
-            input("Press Enter to continue...\n")
+            typingInput("Press Enter to continue...\n")
             clear_screen
 
 
@@ -468,11 +488,11 @@ def choose_category(new_month):
                 clear_screen()
                 print('Number out of range.\n')
                 print('Please enter a number from the list provided:\n')
-                input("Press Enter to continue...\n")
+                typingInput("Press Enter to continue...\n")
         except ValueError:
             clear_screen()
             print('Invalid data. Please enter a number from the list.\n')
-            input("Press Enter to continue...\n")
+            typingInput("Press Enter to continue...\n")
 
 
 def budget_summary(new_month):
@@ -523,7 +543,7 @@ def budget_breakdown():
     all_values = tracker.get_all_values()
     if not all_values:
         print("Data is not availabe")
-        input("Press Enter to continue... \n")
+        typingInput("Press Enter to continue... \n")
         return
         
     # skip the header row (first row)
@@ -556,7 +576,7 @@ def delete_entry(new_month):
         try:
             if not all_values:
                 print("No data available to Delete")
-                input("Press Enter to continue... \n")
+                typingInput("Press Enter to continue... \n")
                 return
             print("\n")
             index_to_delete = int(input("What line number you wish to delete?\n").strip())
@@ -564,7 +584,7 @@ def delete_entry(new_month):
                 tracker.delete_rows(index_to_delete + 1)  # +1indices start at1
                 clear_screen()
                 print(f'Entry at line {index_to_delete} has been deleted sucesfully\n')
-                input("Press ENTER to go back to the Main Menu... \n")
+                typingInput("Press ENTER to go back to the Main Menu... \n")
                 main()
             else:
                 clear_screen()
@@ -613,11 +633,11 @@ def main():
                 clear_screen()
                 print('Number out of range.\n')
                 print('Please enter a number from the list provided:\n')
-                input("Press Enter to continue...\n")
+                typingInput("Press Enter to continue...\n")
         except ValueError:
             clear_screen()
             print('Invalid data. Please enter a number from the list.\n')
-            input("Press Enter to continue...\n")
+            typingInput("Press Enter to continue...\n")
 
 
 # calling the main function
