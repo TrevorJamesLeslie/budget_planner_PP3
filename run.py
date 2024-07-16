@@ -29,7 +29,7 @@ full_months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ]
-# this line was created with help of chat GPT
+# Dictionary for month abbreviations
 # only first 3 letters needed, making it easy for the user
 month_abbr = {month[:3].capitalize(): month for month in full_months}
 
@@ -66,14 +66,14 @@ def typingInput(text):
 
 def clear_screen():
     """
-    Clear screen function for CLI
+    Function to clear screen for terminal based program
     """
     os.system("clear")
 
 
 def welcome_page():
     """
-    Display welcome message to the user with options to choose the next step.
+    Display welcome message to the user with prompt to confirm entry
     """
     clear_screen()
     print("\n")
@@ -86,7 +86,7 @@ def welcome_page():
 
 def catch_month():
     """
-    Function to catch month that user wants to interact with
+    Function to catch month that user wants to interact with for validation
     """
     global new_month
     while True:
@@ -166,7 +166,7 @@ def budget_decision(new_month):
 
 def income_categories(new_month):
     """
-    Add income from listed categories or create new one
+    Add income from listed categories or create a new one
     """
     clear_screen()
     while True:
@@ -196,9 +196,9 @@ def income_categories(new_month):
                         print("Income value must be a digit.\n")
                         typingInput("Press ENTER to continue... ")
                         clear_screen()
-
+                # append data to the summary spreadsheet
                 tracker.append_row([new_month, category, income, ''])
-                data.setdefault(new_month, {
+                data.setdefault(new_month, {  # setdefault doesnt change
                         'Category': [], 'Income': [],
                         'Outgoings': []})
                 data[new_month]['Category'].append(category)
@@ -247,7 +247,7 @@ def add_income(new_month):
                 category, income = user_input.split(',')
                 category = category.strip()
                 income = income.strip()
-                # make sure that input is a digit
+                # making sure that input is a digit
                 if not income.isdigit():
                     raise ValueError("Income amount must be a digit.")
 
@@ -278,7 +278,6 @@ def add_income(new_month):
             clear_screen()
             continue
         print('Press ENTER To Continue Adding...\n')
-
         print("To acess other sections, select:")
         print("1. Outgoings")
         print("2. Budget Summary")
@@ -311,7 +310,7 @@ def outgoings_categories(new_month):
     while True:
         print(f"OUTGOINGS FOR {new_month.upper()}:\n")
         print("To add outgoings to pre-set categories, select: ")
-        for i, category in enumerate(outgoings_list, 1):
+        for i, category in enumerate(outgoings_list, 1):  # create index
             print(f'{i}. {category}')
         print("\nTo acess other sections, select:")
 
@@ -428,12 +427,12 @@ def generate_month():
             clear_screen()
             if new_month:
                 if new_month in existing_months:
-                    typingPrint(f'Oopsi...{new_month} already EXISTS.')
-                    print('What would you like to do? \n')
+                    typingPrint(f'Oopsi...{new_month} already EXISTS. ')
+                    typingPrint('What would you like to do? \n')
                     print('1. Add Income or Outgoings to this month')
                     print('2. Go back to Main Menu')
                     print('3. Generate new month\n')
-                    print('Please enter your choice: ')
+                    typingPrint('Please enter your choice: ')
                     choice = (input().strip())
                     if choice == '1':
                         choose_category(new_month)
@@ -445,9 +444,6 @@ def generate_month():
                         continue
                 else:
                     print(f"Creating new month: {new_month}")
-                    # append month to the google sheet tracker
-                    # tracker.append_row([new_month, '', '', ''])
-                    # existing_months.append(new_month)
                     data[new_month] = {
                             "Category": [], "Income": [], "Outgoings": []}
                     typingPrint(f"{new_month} has been added sucessfully\n")
@@ -469,7 +465,7 @@ def generate_month():
 
 def choose_category(new_month):
     """
-    Let user chose whatever category (income or outcome).
+    Function to let user choose between adding income or outgoings
     """
     while True:
         clear_screen()
@@ -586,8 +582,9 @@ def delete_entry(new_month):
             if index_to_delete > 0 and index_to_delete < len(all_values):
                 tracker.delete_rows(index_to_delete + 1)  # +1indices start at1
                 clear_screen()
-                print(f'Entry at line {index_to_delete} deleted sucesfully\n')
-                typingInput("Press ENTER to go back to the Main Menu... \n")
+                typingInput(f'Entry at line {
+                        index_to_delete} deleted sucesfully\n')
+                print("Press ENTER to go back to the Main Menu... \n")
                 main()
             else:
                 clear_screen()
@@ -610,7 +607,7 @@ def main():
         print('4. Delete entry')
         print('5. EXIT\n')
         try:
-            choice = int(input('Please Enter a Number( 1 - 5 ) :\n').strip())
+            choice = int(input('Please Enter a Number(1-5):\n').strip())
             if choice == 1:
                 catch_month()
                 budget_summary(new_month)
