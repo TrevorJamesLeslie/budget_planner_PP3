@@ -109,6 +109,7 @@ def budget_decision(new_month):
             print("\n")
             if choice == 1:
                 budget_breakdown(new_month)
+                exit_program()
                 break
             if choice == 2:
                 main()
@@ -529,6 +530,7 @@ def budget_breakdown():
             print(
                 f'{index:<7}{month:<15}{category:<18}'
                 f'{income:<10}{outgoings:<10}')
+            print('/n')
 
 
 
@@ -548,8 +550,9 @@ def delete_entry(new_month):
             index_to_delete = int(input("What line number you wish to delete?\n").strip())
             if index_to_delete > 0 and index_to_delete < len(all_values):
                 tracker.delete_rows(index_to_delete + 1)  # +1indices start at1
-                print(f'Entry at line {index_to_delete} has been deleted sucesfully')
-                continue
+                print(f'Entry at line {index_to_delete} has been deleted sucesfully\n')
+                input("Press ENTER to go back to the Main Menu... \n")
+                main()
             else:
                 clear_screen()
                 print("Invalid index. Enter number within the range.")
@@ -616,7 +619,7 @@ def main():
             print('Invalid data. Please enter a number from the list.\n')
             input("Press Enter to continue...\n")
 
-delete_entry(new_month)
+
 # calling the main function
 welcome_page()
 main()
