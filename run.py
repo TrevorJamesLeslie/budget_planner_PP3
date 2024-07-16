@@ -533,7 +533,6 @@ def budget_breakdown():
             print('/n')
 
 
-
 def delete_entry(new_month):
     """
     Delete data from the tracker worksheet based on user input.
@@ -566,6 +565,30 @@ def welcome_page():
     Display welcome message to the user with options to choose the next step.
     """
     clear_screen()
+    print("""
+    
+     /$$$$$$$                  /$$                       /$$          
+    | $$__  $$                | $$                      | $$          
+    | $$  \ $$ /$$   /$$  /$$$$$$$  /$$$$$$   /$$$$$$  /$$$$$$        
+    | $$$$$$$ | $$  | $$ /$$__  $$ /$$__  $$ /$$__  $$|_  $$_/        
+    | $$__  $$| $$  | $$| $$  | $$| $$  \ $$| $$$$$$$$  | $$          
+    | $$  \ $$| $$  | $$| $$  | $$| $$  | $$| $$_____/  | $$ /$$      
+    | $$$$$$$/|  $$$$$$/|  $$$$$$$|  $$$$$$$|  $$$$$$$  |  $$$$/      
+    |_______/  \______/  \_______/ \____  $$ \_______/   \___/        
+                                /$$  \ $$                          
+                                |  $$$$$$/                          
+                                \______/                           
+    /$$$$$$$  /$$                                                    
+    | $$__  $$| $$                                                    
+    | $$  \ $$| $$  /$$$$$$  /$$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$   
+    | $$$$$$$/| $$ |____  $$| $$__  $$| $$__  $$ /$$__  $$ /$$__  $$  
+    | $$____/ | $$  /$$$$$$$| $$  \ $$| $$  \ $$| $$$$$$$$| $$  \__/  
+    | $$      | $$ /$$__  $$| $$  | $$| $$  | $$| $$_____/| $$        
+    | $$      | $$|  $$$$$$$| $$  | $$| $$  | $$|  $$$$$$$| $$        
+    |__/      |__/ \_______/|__/  |__/|__/  |__/ \_______/|__/        
+    
+    """)
+    
     print('$$$ WELCOME TO BUDGET PLANNER $$$\n')
     print('WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES?\n')
     print("LET'S GET STARTED THEN!\n")
@@ -623,3 +646,4 @@ def main():
 # calling the main function
 welcome_page()
 main()
+
