@@ -72,6 +72,7 @@ Prior to starting any program function code, the relevant Credentials and API se
 Used to store my data, simulating a database. All data entry and manipulation occur within the terminal, and the user interacts with a clear and straightforward CLI.
 
 - ![Google Sheets Aplied](readme_documents/screenshots/added_income_spreadsheet.png)
+- [Access Projects Google Sheets](https://docs.google.com/spreadsheets/d/1tFWIhaIpQUKqYTmgPDXH9BrgyeMR3SbNc6ddLSzBp84/edit?usp=sharing)
 
 ## Python Logic  
 The project utilizes Python to create an application that accesses, displays, and edits data from Google Sheets. The core functionality includes menus created using if/elif statements and user input validation using while loops and try/except statements.

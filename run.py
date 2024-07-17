@@ -536,7 +536,10 @@ def budget_breakdown():
     """
     global new_month
     clear_screen()
-
+    print(f"Here is your breakdown for month of {new_month}")
+    typingPrint("Press ENTER to go back to the Main Menu\n")
+    print('\n')
+    
     # display the data so that it can be acessed and deleted
     all_values = tracker.get_all_values()
     if not all_values:
