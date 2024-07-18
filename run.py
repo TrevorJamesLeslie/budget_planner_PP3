@@ -76,6 +76,18 @@ def welcome_page():
     Display welcome message to the user with prompt to confirm entry
     """
     clear_screen()
+    #  prefixing the string with an r,to avoid invalid escape sequence
+    print(r"""
+
+  _   ______           _            _    ______ _
+ | |  | ___ \         | |          | |   | ___ \ |
+/ __) | |_/ /_   _  __| | __ _  ___| |_  | |_/ / | __ _ _ __  _ __   ___ _ __
+\__ \ | ___ \ | | |/ _` |/ _` |/ _ \ __| |  __/| |/ _` | '_ \| '_ \ / _ \ '__|
+(   / | |_/ / |_| | (_| | (_| |  __/ |_  | |   | | (_| | | | | | | |  __/ |
+ |_|  \____/ \__,_|\__,_|\__, |\___|\__| \_|   |_|\__,_|_| |_|_| |_|\___|_|
+                          __/ |
+                         |___/
+ """)
     print("\n")
     print('$$$ WELCOME TO THE BUDGET PLANNER $$$\n')
     print('WOULD YOU LIKE TO GET CLEAR ON WHERE YOUR MONEY GOES?')
@@ -539,7 +551,7 @@ def budget_breakdown():
     print(f"Here is your breakdown for month of {new_month}")
     typingPrint("Press ENTER to go back to the Main Menu\n")
     print('\n')
-    
+
     # display the data so that it can be acessed and deleted
     all_values = tracker.get_all_values()
     if not all_values:

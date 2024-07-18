@@ -1,14 +1,65 @@
+
 # Budget Planner $$$
 
 ![Welcome Screen](readme_documents/screenshots/welcome_screen.png)
 
 Visit the deployed site here: [Budget Planner](https://budget-planner-ef48562f3908.herokuapp.com/)
 
+Acess data from the googlesheets (view only) [Projects Google Sheets](https://docs.google.com/spreadsheets/d/1tFWIhaIpQUKqYTmgPDXH9BrgyeMR3SbNc6ddLSzBp84/edit?usp=sharing) 
+
 This application is designed to track and manage my budget efficiently. It allows me to input income and expenses, categorize them, and generate monthly summaries using Google Sheets for data storage. I created this tool to have a better grasp of my personal finances and make informed financial decisions.
+
+# List of content:
+* [**User Experience/User Interface (UX/UI)**](#user-experienceuser-interface-uxui)
+  * [User Stories](#user-stories)
+  * [User Goals](#user-goals)
+    * [First Time Visitor Goals](#first-time-visitor-goals)
+    * [Returning Visitor Goals](#returning-visitor-goals)
+* [**Project Creation**](#project-creation)
+  * [Design](#design)
+  * [Planning](#planning)
+    * [Flowchart](#flowchart)
+    * [Google API Setup](#google-api-setup)
+    * [Google Sheets](#google-sheets)
+  * [Python Logic](#python-logic)
+    * [Key Functions](#key-functions)
+    * [Helper Functions](#helper-functions)
+* [**Features**](#features)
+   * [How to Use Budget Planner](#how-to-use-budget-planner)
+      * [Step-by-Step Guide](#step-by-step-guide)
+      * [Starting the Application](#starting-the-application)
+      * [Main Menu](#main-menu)
+      * [Generating a New Budget](#generating-a-new-budget)
+      * [Entering Income](#entering-income)
+      * [Entering Expenses](#entering-expenses)
+      * [Viewing the Budget Summary](#viewing-the-budget-summary)
+      * [Add Data to the Budget](#add-data-to-the-budget)
+      * [Deleting an Entry](#deleting-an-entry)
+      * [Exiting the Program](#exiting-the-program)
+* [**Future Enhancements**](#future-enhancements)
+* [**Languages and Technologies Used**](#languages-and-technologies-used)
+* [**Libraries & Packages**](#libraries--packages)
+* [**Testing**](#testing)
+  * [Manual Testing](#manual-testing)
+  * [Code Validation](#code-validation)
+  * [Known Bugs / Fixed Bugs](#known-bugs--fixed-bugs)
+* [**Setting up & Deployment**](#setting-up--deployment)
+  * [Creating a New Repository](#creating-a-new-repository)
+  * [Forking the GitHub Repository](#forking-the-github-repository)
+  * [Activating the Google Drive & Sheets API](#activating-the-google-drive--sheets-api)
+  * [Setting up the Gitpod Workspace for the APIs](#setting-up-the-gitpod-workspace-for-the-apis)
+  * [Initial Code for Connecting to Our API with Python](#initial-code-for-connecting-to-our-api-with-python)
+  * [Deploying to Heroku](#deploying-to-heroku)
+* [**Credits**](#credits)
+  * [Content](#content)
+  * [Learning and Support Resources](#learning-and-support-resources)
+  * [Personal Comments](#personal-comments)
+* [**Acknowledgements**](#acknowledgements)
+* [**Contact Information**](#contact-information)
 
 ## User Experience/User Interface (UX/UI) 
 
-### User Stories
+## User Stories
 
 **As the primary user, I:**
 
@@ -25,6 +76,8 @@ This application is designed to track and manage my budget efficiently. It allow
 
 - Want to know if there are any new updates or features.
   - Future updates and features will be documented and accessible via the application's main menu or a dedicated section.
+
+## User Goals
 
 ### First Time Visitor Goals
 
@@ -51,13 +104,14 @@ This application is designed to track and manage my budget efficiently. It allow
 4. Check the summary for previous budgets.
    - The `budget_summary` function generates summaries for previous months, allowing me to review my financial history.
 
-## Design   
-
-The entire program is displayed in a Command Line Interface (CLI). The application is designed to be user-friendly with clear prompts and validations to guide users through various tasks such as adding income, recording expenses, and generating summaries.
 
 <br>
 
 # Project Creation
+
+## Design   
+
+The entire program is displayed in a Command Line Interface (CLI). The application is designed to be user-friendly with clear prompts and validations to guide users through various tasks such as adding income, recording expenses, and generating summaries.
 
 ## Planning 
 
@@ -72,7 +126,6 @@ Prior to starting any program function code, the relevant Credentials and API se
 Used to store my data, simulating a database. All data entry and manipulation occur within the terminal, and the user interacts with a clear and straightforward CLI.
 
 - ![Google Sheets Aplied](readme_documents/screenshots/added_income_spreadsheet.png)
-- [Access Projects Google Sheets](https://docs.google.com/spreadsheets/d/1tFWIhaIpQUKqYTmgPDXH9BrgyeMR3SbNc6ddLSzBp84/edit?usp=sharing)
 
 ## Python Logic  
 The project utilizes Python to create an application that accesses, displays, and edits data from Google Sheets. The core functionality includes menus created using if/elif statements and user input validation using while loops and try/except statements.
@@ -138,8 +191,6 @@ The project utilizes Python to create an application that accesses, displays, an
    - After selecting or creating a month, you can choose to add income.
    - Select the income category (e.g., Salary, Sales) or create a new category.
    - Enter the income amount when prompted.
-
-
 
 5. **Entering Expenses**
 - *[Add Expenses](readme_documents/screenshots/add_outgoings.png)*
@@ -356,12 +407,13 @@ Heroku has been used to deploy this project as Python is used as a back-end lang
 
 This project was a great experience. 
 Finding the flow felt absolutely amazing, I knew what I was doing and things were working... until they werent. 
-A massive heelp was taking a break as often coming back with a fresh mind was the solution. Use of chat gpt was really helpful to find quick answers and expalnation, it saved a lot of research work and found that it explained well once the right prompt was given. As I was progressing through the project I found myslef expanding the content as, since it was made with myslef in mind,I I knew exactly what I needed.
+A massive help was taking a break. Often coming back with a fresh mind was the solution. Use of chat gpt was really helpful to find quick answers and expalnation, it saved a lot of research work and found that it explained well once the right prompt was given. As I was progressing through the project I found myslef expanding the content as, since it was made with myslef in mind,I I knew exactly what I needed.
 the biggest challenge was understanding the logic behind it, there was plenty of lightbulb moments with huge excitment and love for language efficiency. 
 A lot of time was spend making things work , changing one thing and then everything seemed to fall apart (happened mostly during late night/early mornings, which only highlights the importance of a good break). I truly feel proud of this project as I know I will be actually using it.<br>
 **Advice I would give myslef if I had started again**: 
 - 1. Take breaks
-- 2. Plan the flow to the detail before starting to code (I had done chart and spreadsheets but left it unfinished due to time, but I should have spend more time planning)
+- 2. Plan the flow to the detail before starting to code (I had done chart and spreadsheets but left it unfinished due to time, but I should have spend more time planning).
+
 
 
 ### Acknowledgements
