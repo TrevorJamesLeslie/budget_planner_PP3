@@ -428,5 +428,5 @@ A massive shout-out to:
 If you have any questions, suggestions, or feedback, feel free to reach out to me at:
 
 - Email: [monika1986mak@gmail.com](mailto:monika1986mak@gmail.com)
-- LinkedIn: [Monika Mak](linkedin.com/in/monika-mak)
+- LinkedIn: [Monika Mak](https://linkedin.com/in/monika-mak)
 - GitHub: [Monika-Mak](https://github.com/monika-mak)
